@@ -1,0 +1,6 @@
+﻿  ..\libass\x86\be_blur.asm
+  ..\libass\x86\blend_bitmaps.asm
+  ..\libass\x86\blur.asm
+  ..\libass\x86\cpuid.asm
+  ..\libass\x86\rasterizer.asm
+  Custom Clean Step

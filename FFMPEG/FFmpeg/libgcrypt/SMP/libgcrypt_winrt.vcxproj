@@ -1,0 +1,567 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AD7A23EF-09DE-4C75-8ED1-F783BAACFC7E}</ProjectGuid>
+    <RootNamespace>gcrypt</RootNamespace>
+  </PropertyGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="smp_winrt_deps.props" />
+    <Import Project="libgcrypt_files.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWinRT|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;asm=__asm__;__i386__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\src;.\mpi;..\mpi;.\cipher;..\random;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4146;4018;4028;4244;4267;4715;4334;4996;4703;4090;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>libgpg-errord_winrt.lib;vccorlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4006,4221,4264  %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\gcrypt.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgcrypt.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h (
+copy "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h "$(OutDir)"\include\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\gcrypt.h (
+del ..\src\gcrypt.h
+)
+if exist ..\mpi\asm-syntax.h (
+del ..\mpi\asm-syntax.h
+)
+if exist ..\mpi\mod-source-info.h (
+del ..\mpi\mod-source-info.h
+)
+if exist ..\mpi\mpi-asm-defs.h (
+del ..\mpi\mpi-asm-defs.h
+)
+if exist ..\mpi\sysdep.h (
+del ..\mpi\sysdep.h
+)
+if exist "$(OutDir)"\include\gcrypt.h (
+del "$(OutDir)"\include\gcrypt.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gcrypt.h (
+del /f /q "$(OutDir)"\include\gcrypt.h
+)
+if exist $(OutDir)\licenses\libgcrypt.txt (
+del /f /q $(OutDir)\licenses\libgcrypt.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWinRT|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;asm=__asm__;__x86_64__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\src;.\mpi;..\mpi;.\cipher;..\random;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4146;4018;4028;4244;4267;4715;4334;4996;4703;4090;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>libgpg-errord_winrt.lib;vccorlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4006,4221,4264  %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\gcrypt.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgcrypt.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h (
+copy "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h "$(OutDir)"\include\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\gcrypt.h (
+del ..\src\gcrypt.h
+)
+if exist ..\mpi\asm-syntax.h (
+del ..\mpi\asm-syntax.h
+)
+if exist ..\mpi\mod-source-info.h (
+del ..\mpi\mod-source-info.h
+)
+if exist ..\mpi\mpi-asm-defs.h (
+del ..\mpi\mpi-asm-defs.h
+)
+if exist ..\mpi\sysdep.h (
+del ..\mpi\sysdep.h
+)
+if exist "$(OutDir)"\include\gcrypt.h (
+del "$(OutDir)"\include\gcrypt.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gcrypt.h (
+del /f /q "$(OutDir)"\include\gcrypt.h
+)
+if exist $(OutDir)\licenses\libgcrypt.txt (
+del /f /q $(OutDir)\licenses\libgcrypt.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLLWinRT|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;asm=__asm__;__i386__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\src;.\mpi;..\mpi;.\cipher;..\random;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4146;4018;4028;4244;4267;4715;4334;4996;4703;4090;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>..\src\libgcrypt.def</ModuleDefinitionFile>
+      <AdditionalDependencies>gpg-errord_winrt.lib;vccorlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4006,4221,4264  %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\gcrypt.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgcrypt.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h (
+copy "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h "$(OutDir)"\include\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\gcrypt.h (
+del ..\src\gcrypt.h
+)
+if exist ..\mpi\asm-syntax.h (
+del ..\mpi\asm-syntax.h
+)
+if exist ..\mpi\mod-source-info.h (
+del ..\mpi\mod-source-info.h
+)
+if exist ..\mpi\mpi-asm-defs.h (
+del ..\mpi\mpi-asm-defs.h
+)
+if exist ..\mpi\sysdep.h (
+del ..\mpi\sysdep.h
+)
+if exist "$(OutDir)"\include\gcrypt.h (
+del "$(OutDir)"\include\gcrypt.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gcrypt.h (
+del /f /q "$(OutDir)"\include\gcrypt.h
+)
+if exist $(OutDir)\licenses\libgcrypt.txt (
+del /f /q $(OutDir)\licenses\libgcrypt.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLLWinRT|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;asm=__asm__;__x86_64__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\src;.\mpi;..\mpi;.\cipher;..\random;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4146;4018;4028;4244;4267;4715;4334;4996;4703;4090;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>..\src\libgcrypt.def</ModuleDefinitionFile>
+      <AdditionalDependencies>gpg-errord_winrt.lib;vccorlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4006,4221,4264  %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\gcrypt.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgcrypt.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h (
+copy "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h "$(OutDir)"\include\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\gcrypt.h (
+del ..\src\gcrypt.h
+)
+if exist ..\mpi\asm-syntax.h (
+del ..\mpi\asm-syntax.h
+)
+if exist ..\mpi\mod-source-info.h (
+del ..\mpi\mod-source-info.h
+)
+if exist ..\mpi\mpi-asm-defs.h (
+del ..\mpi\mpi-asm-defs.h
+)
+if exist ..\mpi\sysdep.h (
+del ..\mpi\sysdep.h
+)
+if exist "$(OutDir)"\include\gcrypt.h (
+del "$(OutDir)"\include\gcrypt.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gcrypt.h (
+del /f /q "$(OutDir)"\include\gcrypt.h
+)
+if exist $(OutDir)\licenses\libgcrypt.txt (
+del /f /q $(OutDir)\licenses\libgcrypt.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWinRT|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;asm=__asm__;__i386__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\src;.\mpi;..\mpi;.\cipher;..\random;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4146;4018;4028;4244;4267;4715;4334;4996;4703;4090;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>libgpg-error_winrt.lib;vccorlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4006,4221,4264  %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\gcrypt.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgcrypt.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h (
+copy "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h "$(OutDir)"\include\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\gcrypt.h (
+del ..\src\gcrypt.h
+)
+if exist ..\mpi\asm-syntax.h (
+del ..\mpi\asm-syntax.h
+)
+if exist ..\mpi\mod-source-info.h (
+del ..\mpi\mod-source-info.h
+)
+if exist ..\mpi\mpi-asm-defs.h (
+del ..\mpi\mpi-asm-defs.h
+)
+if exist ..\mpi\sysdep.h (
+del ..\mpi\sysdep.h
+)
+if exist "$(OutDir)"\include\gcrypt.h (
+del "$(OutDir)"\include\gcrypt.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gcrypt.h (
+del /f /q "$(OutDir)"\include\gcrypt.h
+)
+if exist $(OutDir)\licenses\libgcrypt.txt (
+del /f /q $(OutDir)\licenses\libgcrypt.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWinRT|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;asm=__asm__;__x86_64__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\src;.\mpi;..\mpi;.\cipher;..\random;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4146;4018;4028;4244;4267;4715;4334;4996;4703;4090;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>libgpg-error_winrt.lib;vccorlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4006,4221,4264  %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\gcrypt.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgcrypt.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h (
+copy "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h "$(OutDir)"\include\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\gcrypt.h (
+del ..\src\gcrypt.h
+)
+if exist ..\mpi\asm-syntax.h (
+del ..\mpi\asm-syntax.h
+)
+if exist ..\mpi\mod-source-info.h (
+del ..\mpi\mod-source-info.h
+)
+if exist ..\mpi\mpi-asm-defs.h (
+del ..\mpi\mpi-asm-defs.h
+)
+if exist ..\mpi\sysdep.h (
+del ..\mpi\sysdep.h
+)
+if exist "$(OutDir)"\include\gcrypt.h (
+del "$(OutDir)"\include\gcrypt.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gcrypt.h (
+del /f /q "$(OutDir)"\include\gcrypt.h
+)
+if exist $(OutDir)\licenses\libgcrypt.txt (
+del /f /q $(OutDir)\licenses\libgcrypt.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLWinRT|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;asm=__asm__;__i386__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\src;.\mpi;..\mpi;.\cipher;..\random;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4146;4018;4028;4244;4267;4715;4334;4996;4703;4090;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>..\src\libgcrypt.def</ModuleDefinitionFile>
+      <AdditionalDependencies>gpg-error_winrt.lib;vccorlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4006,4221,4264  %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\gcrypt.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgcrypt.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h (
+copy "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h "$(OutDir)"\include\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\gcrypt.h (
+del ..\src\gcrypt.h
+)
+if exist ..\mpi\asm-syntax.h (
+del ..\mpi\asm-syntax.h
+)
+if exist ..\mpi\mod-source-info.h (
+del ..\mpi\mod-source-info.h
+)
+if exist ..\mpi\mpi-asm-defs.h (
+del ..\mpi\mpi-asm-defs.h
+)
+if exist ..\mpi\sysdep.h (
+del ..\mpi\sysdep.h
+)
+if exist "$(OutDir)"\include\gcrypt.h (
+del "$(OutDir)"\include\gcrypt.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gcrypt.h (
+del /f /q "$(OutDir)"\include\gcrypt.h
+)
+if exist $(OutDir)\licenses\libgcrypt.txt (
+del /f /q $(OutDir)\licenses\libgcrypt.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLWinRTStaticDeps|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;asm=__asm__;__i386__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\src;.\mpi;..\mpi;.\cipher;..\random;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4146;4018;4028;4244;4267;4715;4334;4996;4703;4090;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>..\src\libgcrypt.def</ModuleDefinitionFile>
+      <AdditionalDependencies>libgpg-error_winrt.lib;vccorlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4006,4221,4264  %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\gcrypt.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgcrypt.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h (
+copy "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h "$(OutDir)"\include\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\gcrypt.h (
+del ..\src\gcrypt.h
+)
+if exist ..\mpi\asm-syntax.h (
+del ..\mpi\asm-syntax.h
+)
+if exist ..\mpi\mod-source-info.h (
+del ..\mpi\mod-source-info.h
+)
+if exist ..\mpi\mpi-asm-defs.h (
+del ..\mpi\mpi-asm-defs.h
+)
+if exist ..\mpi\sysdep.h (
+del ..\mpi\sysdep.h
+)
+if exist "$(OutDir)"\include\gcrypt.h (
+del "$(OutDir)"\include\gcrypt.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gcrypt.h (
+del /f /q "$(OutDir)"\include\gcrypt.h
+)
+if exist $(OutDir)\licenses\libgcrypt.txt (
+del /f /q $(OutDir)\licenses\libgcrypt.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLWinRT|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;asm=__asm__;__x86_64__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\src;.\mpi;..\mpi;.\cipher;..\random;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4146;4018;4028;4244;4267;4715;4334;4996;4703;4090;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>..\src\libgcrypt.def</ModuleDefinitionFile>
+      <AdditionalDependencies>gpg-error_winrt.lib;vccorlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4006,4221,4264  %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\gcrypt.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgcrypt.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h (
+copy "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h "$(OutDir)"\include\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\gcrypt.h (
+del ..\src\gcrypt.h
+)
+if exist ..\mpi\asm-syntax.h (
+del ..\mpi\asm-syntax.h
+)
+if exist ..\mpi\mod-source-info.h (
+del ..\mpi\mod-source-info.h
+)
+if exist ..\mpi\mpi-asm-defs.h (
+del ..\mpi\mpi-asm-defs.h
+)
+if exist ..\mpi\sysdep.h (
+del ..\mpi\sysdep.h
+)
+if exist "$(OutDir)"\include\gcrypt.h (
+del "$(OutDir)"\include\gcrypt.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gcrypt.h (
+del /f /q "$(OutDir)"\include\gcrypt.h
+)
+if exist $(OutDir)\licenses\libgcrypt.txt (
+del /f /q $(OutDir)\licenses\libgcrypt.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLWinRTStaticDeps|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;asm=__asm__;__x86_64__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\src;.\mpi;..\mpi;.\cipher;..\random;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4146;4018;4028;4244;4267;4715;4334;4996;4703;4090;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>..\src\libgcrypt.def</ModuleDefinitionFile>
+      <AdditionalDependencies>libgpg-error_winrt.lib;vccorlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4006,4221,4264  %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\gcrypt.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgcrypt.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h (
+copy "$(ProjectDir)"\..\..\prebuilt\include\gpg-error.h "$(OutDir)"\include\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\gcrypt.h (
+del ..\src\gcrypt.h
+)
+if exist ..\mpi\asm-syntax.h (
+del ..\mpi\asm-syntax.h
+)
+if exist ..\mpi\mod-source-info.h (
+del ..\mpi\mod-source-info.h
+)
+if exist ..\mpi\mpi-asm-defs.h (
+del ..\mpi\mpi-asm-defs.h
+)
+if exist ..\mpi\sysdep.h (
+del ..\mpi\sysdep.h
+)
+if exist "$(OutDir)"\include\gcrypt.h (
+del "$(OutDir)"\include\gcrypt.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gcrypt.h (
+del /f /q "$(OutDir)"\include\gcrypt.h
+)
+if exist $(OutDir)\licenses\libgcrypt.txt (
+del /f /q $(OutDir)\licenses\libgcrypt.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+</Project>

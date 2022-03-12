@@ -1,0 +1,8 @@
+﻿  x86_64\ecc-curve25519-modp.s
+  x86_64\ecc-curve448-modp.s
+  x86_64\ecc-secp192r1-modp.s
+  x86_64\ecc-secp224r1-modp.s
+  x86_64\ecc-secp256r1-redc.s
+  x86_64\ecc-secp384r1-modp.s
+  x86_64\ecc-secp521r1-modp.s
+  Custom Clean Step

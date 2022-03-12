@@ -1,0 +1,10 @@
+﻿  lib\accelerated\x86\coff\aes-ssse3-x86_64.asm
+  lib\accelerated\x86\coff\aesni-gcm-x86_64.asm
+  lib\accelerated\x86\coff\aesni-x86_64.asm
+  lib\accelerated\x86\coff\e_padlock-x86_64.asm
+  lib\accelerated\x86\coff\ghash-x86_64.asm
+  lib\accelerated\x86\coff\sha1-ssse3-x86_64.asm
+  lib\accelerated\x86\coff\sha256-avx-x86_64.asm
+  lib\accelerated\x86\coff\sha256-ssse3-x86_64.asm
+  lib\accelerated\x86\coff\sha512-ssse3-x86_64.asm
+  Custom Clean Step

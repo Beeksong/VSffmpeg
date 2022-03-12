@@ -1,0 +1,1166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{070FEF2B-0C3F-4F33-9D3C-53C7330BF518}</ProjectGuid>
+    <RootNamespace>nettle</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="smp_deps.props" />
+    <Import Project="libnettle_files.props" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\yasm.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4146;4267;4098;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>libgmpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\nettle
+copy ..\aes.h "$(OutDir)"\include\nettle
+copy ..\arcfour.h "$(OutDir)"\include\nettle
+copy ..\arctwo.h "$(OutDir)"\include\nettle
+copy ..\asn1.h "$(OutDir)"\include\nettle
+copy ..\base16.h "$(OutDir)"\include\nettle
+copy ..\base64.h "$(OutDir)"\include\nettle
+copy ..\bignum.h "$(OutDir)"\include\nettle
+copy ..\blowfish.h "$(OutDir)"\include\nettle
+copy ..\buffer.h "$(OutDir)"\include\nettle
+copy ..\camellia.h "$(OutDir)"\include\nettle
+copy ..\cast128.h "$(OutDir)"\include\nettle
+copy ..\cbc.h "$(OutDir)"\include\nettle
+copy ..\ccm.h "$(OutDir)"\include\nettle
+copy ..\cfb.h "$(OutDir)"\include\nettle
+copy ..\chacha.h "$(OutDir)"\include\nettle
+copy ..\chacha-poly1305.h "$(OutDir)"\include\nettle
+copy ..\cmac.h "$(OutDir)"\include\nettle
+copy ..\curve25519.h "$(OutDir)"\include\nettle
+copy ..\curve448.h "$(OutDir)"\include\nettle
+copy ..\ctr.h "$(OutDir)"\include\nettle
+copy ..\des.h "$(OutDir)"\include\nettle
+copy ..\dsa.h "$(OutDir)"\include\nettle
+copy ..\dsa-compat.h "$(OutDir)"\include\nettle
+copy ..\eax.h "$(OutDir)"\include\nettle
+copy ..\ecc.h "$(OutDir)"\include\nettle
+copy ..\ecc-curve.h "$(OutDir)"\include\nettle
+copy ..\ecdsa.h "$(OutDir)"\include\nettle
+copy ..\eddsa.h "$(OutDir)"\include\nettle
+copy ..\gcm.h "$(OutDir)"\include\nettle
+copy ..\gostdsa.h "$(OutDir)"\include\nettle
+copy ..\gosthash94.h "$(OutDir)"\include\nettle
+copy ..\hmac.h "$(OutDir)"\include\nettle
+copy ..\hkdf.h "$(OutDir)"\include\nettle
+copy ..\knuth-lfib.h "$(OutDir)"\include\nettle
+copy ..\macros.h "$(OutDir)"\include\nettle
+copy ..\md2.h "$(OutDir)"\include\nettle
+copy ..\md4.h "$(OutDir)"\include\nettle
+copy ..\md5.h "$(OutDir)"\include\nettle
+copy ..\md5-compat.h "$(OutDir)"\include\nettle
+copy ..\memops.h "$(OutDir)"\include\nettle
+copy ..\memxor.h "$(OutDir)"\include\nettle
+copy ..\nettle-meta.h "$(OutDir)"\include\nettle
+copy ..\nettle-types.h "$(OutDir)"\include\nettle
+copy ..\pbkdf2.h "$(OutDir)"\include\nettle
+copy ..\pgp.h "$(OutDir)"\include\nettle
+copy ..\pkcs1.h "$(OutDir)"\include\nettle
+copy ..\pss.h "$(OutDir)"\include\nettle
+copy ..\pss-mgf1.h "$(OutDir)"\include\nettle
+copy ..\poly1305.h "$(OutDir)"\include\nettle
+copy ..\realloc.h "$(OutDir)"\include\nettle
+copy ..\ripemd160.h "$(OutDir)"\include\nettle
+copy ..\rsa.h "$(OutDir)"\include\nettle
+copy ..\salsa20.h "$(OutDir)"\include\nettle
+copy ..\serpent.h "$(OutDir)"\include\nettle
+copy ..\sexp.h "$(OutDir)"\include\nettle
+copy ..\sha.h "$(OutDir)"\include\nettle
+copy ..\sha1.h "$(OutDir)"\include\nettle
+copy ..\sha2.h "$(OutDir)"\include\nettle
+copy ..\sha3.h "$(OutDir)"\include\nettle
+copy ..\siv-cmac.h "$(OutDir)"\include\nettle
+copy ..\streebog.h "$(OutDir)"\include\nettle
+copy ..\twofish.h "$(OutDir)"\include\nettle
+copy ..\umac.h "$(OutDir)"\include\nettle
+copy ..\xts.h "$(OutDir)"\include\nettle
+copy ..\yarrow.h "$(OutDir)"\include\nettle
+copy version.h "$(OutDir)"\include\nettle
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LESSERv3 $(OutDir)\licenses\nettle.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\nettle-stdint.h (
+del ..\nettle-stdint.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\nettle (
+rd /s /q "$(OutDir)"\include\nettle
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\nettle (
+rmdir /s /q "$(OutDir)"\include\nettle
+)
+if exist $(OutDir)\licenses\nettle.txt (
+del /f /q $(OutDir)\licenses\nettle.txt
+)</Command>
+    </CustomBuildStep>
+    <YASM>
+      <Preprocessor>1</Preprocessor>
+      <Parser>1</Parser>
+    </YASM>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4146;4267;4098;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>libgmpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\nettle
+copy ..\aes.h "$(OutDir)"\include\nettle
+copy ..\arcfour.h "$(OutDir)"\include\nettle
+copy ..\arctwo.h "$(OutDir)"\include\nettle
+copy ..\asn1.h "$(OutDir)"\include\nettle
+copy ..\base16.h "$(OutDir)"\include\nettle
+copy ..\base64.h "$(OutDir)"\include\nettle
+copy ..\bignum.h "$(OutDir)"\include\nettle
+copy ..\blowfish.h "$(OutDir)"\include\nettle
+copy ..\buffer.h "$(OutDir)"\include\nettle
+copy ..\camellia.h "$(OutDir)"\include\nettle
+copy ..\cast128.h "$(OutDir)"\include\nettle
+copy ..\cbc.h "$(OutDir)"\include\nettle
+copy ..\ccm.h "$(OutDir)"\include\nettle
+copy ..\cfb.h "$(OutDir)"\include\nettle
+copy ..\chacha.h "$(OutDir)"\include\nettle
+copy ..\chacha-poly1305.h "$(OutDir)"\include\nettle
+copy ..\cmac.h "$(OutDir)"\include\nettle
+copy ..\curve25519.h "$(OutDir)"\include\nettle
+copy ..\curve448.h "$(OutDir)"\include\nettle
+copy ..\ctr.h "$(OutDir)"\include\nettle
+copy ..\des.h "$(OutDir)"\include\nettle
+copy ..\dsa.h "$(OutDir)"\include\nettle
+copy ..\dsa-compat.h "$(OutDir)"\include\nettle
+copy ..\eax.h "$(OutDir)"\include\nettle
+copy ..\ecc.h "$(OutDir)"\include\nettle
+copy ..\ecc-curve.h "$(OutDir)"\include\nettle
+copy ..\ecdsa.h "$(OutDir)"\include\nettle
+copy ..\eddsa.h "$(OutDir)"\include\nettle
+copy ..\gcm.h "$(OutDir)"\include\nettle
+copy ..\gostdsa.h "$(OutDir)"\include\nettle
+copy ..\gosthash94.h "$(OutDir)"\include\nettle
+copy ..\hmac.h "$(OutDir)"\include\nettle
+copy ..\hkdf.h "$(OutDir)"\include\nettle
+copy ..\knuth-lfib.h "$(OutDir)"\include\nettle
+copy ..\macros.h "$(OutDir)"\include\nettle
+copy ..\md2.h "$(OutDir)"\include\nettle
+copy ..\md4.h "$(OutDir)"\include\nettle
+copy ..\md5.h "$(OutDir)"\include\nettle
+copy ..\md5-compat.h "$(OutDir)"\include\nettle
+copy ..\memops.h "$(OutDir)"\include\nettle
+copy ..\memxor.h "$(OutDir)"\include\nettle
+copy ..\nettle-meta.h "$(OutDir)"\include\nettle
+copy ..\nettle-types.h "$(OutDir)"\include\nettle
+copy ..\pbkdf2.h "$(OutDir)"\include\nettle
+copy ..\pgp.h "$(OutDir)"\include\nettle
+copy ..\pkcs1.h "$(OutDir)"\include\nettle
+copy ..\pss.h "$(OutDir)"\include\nettle
+copy ..\pss-mgf1.h "$(OutDir)"\include\nettle
+copy ..\poly1305.h "$(OutDir)"\include\nettle
+copy ..\realloc.h "$(OutDir)"\include\nettle
+copy ..\ripemd160.h "$(OutDir)"\include\nettle
+copy ..\rsa.h "$(OutDir)"\include\nettle
+copy ..\salsa20.h "$(OutDir)"\include\nettle
+copy ..\serpent.h "$(OutDir)"\include\nettle
+copy ..\sexp.h "$(OutDir)"\include\nettle
+copy ..\sha.h "$(OutDir)"\include\nettle
+copy ..\sha1.h "$(OutDir)"\include\nettle
+copy ..\sha2.h "$(OutDir)"\include\nettle
+copy ..\sha3.h "$(OutDir)"\include\nettle
+copy ..\siv-cmac.h "$(OutDir)"\include\nettle
+copy ..\streebog.h "$(OutDir)"\include\nettle
+copy ..\twofish.h "$(OutDir)"\include\nettle
+copy ..\umac.h "$(OutDir)"\include\nettle
+copy ..\xts.h "$(OutDir)"\include\nettle
+copy ..\yarrow.h "$(OutDir)"\include\nettle
+copy version.h "$(OutDir)"\include\nettle
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LESSERv3 $(OutDir)\licenses\nettle.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\nettle-stdint.h (
+del ..\nettle-stdint.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\nettle (
+rd /s /q "$(OutDir)"\include\nettle
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\nettle (
+rmdir /s /q "$(OutDir)"\include\nettle
+)
+if exist $(OutDir)\licenses\nettle.txt (
+del /f /q $(OutDir)\licenses\nettle.txt
+)</Command>
+    </CustomBuildStep>
+    <YASM>
+      <Preprocessor>1</Preprocessor>
+      <Parser>1</Parser>
+    </YASM>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4146;4267;4098;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libnettle.def</ModuleDefinitionFile>
+      <AdditionalDependencies>gmpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\nettle
+copy ..\aes.h "$(OutDir)"\include\nettle
+copy ..\arcfour.h "$(OutDir)"\include\nettle
+copy ..\arctwo.h "$(OutDir)"\include\nettle
+copy ..\asn1.h "$(OutDir)"\include\nettle
+copy ..\base16.h "$(OutDir)"\include\nettle
+copy ..\base64.h "$(OutDir)"\include\nettle
+copy ..\bignum.h "$(OutDir)"\include\nettle
+copy ..\blowfish.h "$(OutDir)"\include\nettle
+copy ..\buffer.h "$(OutDir)"\include\nettle
+copy ..\camellia.h "$(OutDir)"\include\nettle
+copy ..\cast128.h "$(OutDir)"\include\nettle
+copy ..\cbc.h "$(OutDir)"\include\nettle
+copy ..\ccm.h "$(OutDir)"\include\nettle
+copy ..\cfb.h "$(OutDir)"\include\nettle
+copy ..\chacha.h "$(OutDir)"\include\nettle
+copy ..\chacha-poly1305.h "$(OutDir)"\include\nettle
+copy ..\cmac.h "$(OutDir)"\include\nettle
+copy ..\curve25519.h "$(OutDir)"\include\nettle
+copy ..\curve448.h "$(OutDir)"\include\nettle
+copy ..\ctr.h "$(OutDir)"\include\nettle
+copy ..\des.h "$(OutDir)"\include\nettle
+copy ..\dsa.h "$(OutDir)"\include\nettle
+copy ..\dsa-compat.h "$(OutDir)"\include\nettle
+copy ..\eax.h "$(OutDir)"\include\nettle
+copy ..\ecc.h "$(OutDir)"\include\nettle
+copy ..\ecc-curve.h "$(OutDir)"\include\nettle
+copy ..\ecdsa.h "$(OutDir)"\include\nettle
+copy ..\eddsa.h "$(OutDir)"\include\nettle
+copy ..\gcm.h "$(OutDir)"\include\nettle
+copy ..\gostdsa.h "$(OutDir)"\include\nettle
+copy ..\gosthash94.h "$(OutDir)"\include\nettle
+copy ..\hmac.h "$(OutDir)"\include\nettle
+copy ..\hkdf.h "$(OutDir)"\include\nettle
+copy ..\knuth-lfib.h "$(OutDir)"\include\nettle
+copy ..\macros.h "$(OutDir)"\include\nettle
+copy ..\md2.h "$(OutDir)"\include\nettle
+copy ..\md4.h "$(OutDir)"\include\nettle
+copy ..\md5.h "$(OutDir)"\include\nettle
+copy ..\md5-compat.h "$(OutDir)"\include\nettle
+copy ..\memops.h "$(OutDir)"\include\nettle
+copy ..\memxor.h "$(OutDir)"\include\nettle
+copy ..\nettle-meta.h "$(OutDir)"\include\nettle
+copy ..\nettle-types.h "$(OutDir)"\include\nettle
+copy ..\pbkdf2.h "$(OutDir)"\include\nettle
+copy ..\pgp.h "$(OutDir)"\include\nettle
+copy ..\pkcs1.h "$(OutDir)"\include\nettle
+copy ..\pss.h "$(OutDir)"\include\nettle
+copy ..\pss-mgf1.h "$(OutDir)"\include\nettle
+copy ..\poly1305.h "$(OutDir)"\include\nettle
+copy ..\realloc.h "$(OutDir)"\include\nettle
+copy ..\ripemd160.h "$(OutDir)"\include\nettle
+copy ..\rsa.h "$(OutDir)"\include\nettle
+copy ..\salsa20.h "$(OutDir)"\include\nettle
+copy ..\serpent.h "$(OutDir)"\include\nettle
+copy ..\sexp.h "$(OutDir)"\include\nettle
+copy ..\sha.h "$(OutDir)"\include\nettle
+copy ..\sha1.h "$(OutDir)"\include\nettle
+copy ..\sha2.h "$(OutDir)"\include\nettle
+copy ..\sha3.h "$(OutDir)"\include\nettle
+copy ..\siv-cmac.h "$(OutDir)"\include\nettle
+copy ..\streebog.h "$(OutDir)"\include\nettle
+copy ..\twofish.h "$(OutDir)"\include\nettle
+copy ..\umac.h "$(OutDir)"\include\nettle
+copy ..\xts.h "$(OutDir)"\include\nettle
+copy ..\yarrow.h "$(OutDir)"\include\nettle
+copy version.h "$(OutDir)"\include\nettle
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LESSERv3 $(OutDir)\licenses\nettle.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\nettle-stdint.h (
+del ..\nettle-stdint.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\nettle (
+rd /s /q "$(OutDir)"\include\nettle
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\nettle (
+rmdir /s /q "$(OutDir)"\include\nettle
+)
+if exist $(OutDir)\licenses\nettle.txt (
+del /f /q $(OutDir)\licenses\nettle.txt
+)</Command>
+    </CustomBuildStep>
+    <YASM>
+      <Preprocessor>1</Preprocessor>
+      <Parser>1</Parser>
+    </YASM>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4146;4267;4098;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libnettle.def</ModuleDefinitionFile>
+      <AdditionalDependencies>gmpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\nettle
+copy ..\aes.h "$(OutDir)"\include\nettle
+copy ..\arcfour.h "$(OutDir)"\include\nettle
+copy ..\arctwo.h "$(OutDir)"\include\nettle
+copy ..\asn1.h "$(OutDir)"\include\nettle
+copy ..\base16.h "$(OutDir)"\include\nettle
+copy ..\base64.h "$(OutDir)"\include\nettle
+copy ..\bignum.h "$(OutDir)"\include\nettle
+copy ..\blowfish.h "$(OutDir)"\include\nettle
+copy ..\buffer.h "$(OutDir)"\include\nettle
+copy ..\camellia.h "$(OutDir)"\include\nettle
+copy ..\cast128.h "$(OutDir)"\include\nettle
+copy ..\cbc.h "$(OutDir)"\include\nettle
+copy ..\ccm.h "$(OutDir)"\include\nettle
+copy ..\cfb.h "$(OutDir)"\include\nettle
+copy ..\chacha.h "$(OutDir)"\include\nettle
+copy ..\chacha-poly1305.h "$(OutDir)"\include\nettle
+copy ..\cmac.h "$(OutDir)"\include\nettle
+copy ..\curve25519.h "$(OutDir)"\include\nettle
+copy ..\curve448.h "$(OutDir)"\include\nettle
+copy ..\ctr.h "$(OutDir)"\include\nettle
+copy ..\des.h "$(OutDir)"\include\nettle
+copy ..\dsa.h "$(OutDir)"\include\nettle
+copy ..\dsa-compat.h "$(OutDir)"\include\nettle
+copy ..\eax.h "$(OutDir)"\include\nettle
+copy ..\ecc.h "$(OutDir)"\include\nettle
+copy ..\ecc-curve.h "$(OutDir)"\include\nettle
+copy ..\ecdsa.h "$(OutDir)"\include\nettle
+copy ..\eddsa.h "$(OutDir)"\include\nettle
+copy ..\gcm.h "$(OutDir)"\include\nettle
+copy ..\gostdsa.h "$(OutDir)"\include\nettle
+copy ..\gosthash94.h "$(OutDir)"\include\nettle
+copy ..\hmac.h "$(OutDir)"\include\nettle
+copy ..\hkdf.h "$(OutDir)"\include\nettle
+copy ..\knuth-lfib.h "$(OutDir)"\include\nettle
+copy ..\macros.h "$(OutDir)"\include\nettle
+copy ..\md2.h "$(OutDir)"\include\nettle
+copy ..\md4.h "$(OutDir)"\include\nettle
+copy ..\md5.h "$(OutDir)"\include\nettle
+copy ..\md5-compat.h "$(OutDir)"\include\nettle
+copy ..\memops.h "$(OutDir)"\include\nettle
+copy ..\memxor.h "$(OutDir)"\include\nettle
+copy ..\nettle-meta.h "$(OutDir)"\include\nettle
+copy ..\nettle-types.h "$(OutDir)"\include\nettle
+copy ..\pbkdf2.h "$(OutDir)"\include\nettle
+copy ..\pgp.h "$(OutDir)"\include\nettle
+copy ..\pkcs1.h "$(OutDir)"\include\nettle
+copy ..\pss.h "$(OutDir)"\include\nettle
+copy ..\pss-mgf1.h "$(OutDir)"\include\nettle
+copy ..\poly1305.h "$(OutDir)"\include\nettle
+copy ..\realloc.h "$(OutDir)"\include\nettle
+copy ..\ripemd160.h "$(OutDir)"\include\nettle
+copy ..\rsa.h "$(OutDir)"\include\nettle
+copy ..\salsa20.h "$(OutDir)"\include\nettle
+copy ..\serpent.h "$(OutDir)"\include\nettle
+copy ..\sexp.h "$(OutDir)"\include\nettle
+copy ..\sha.h "$(OutDir)"\include\nettle
+copy ..\sha1.h "$(OutDir)"\include\nettle
+copy ..\sha2.h "$(OutDir)"\include\nettle
+copy ..\sha3.h "$(OutDir)"\include\nettle
+copy ..\siv-cmac.h "$(OutDir)"\include\nettle
+copy ..\streebog.h "$(OutDir)"\include\nettle
+copy ..\twofish.h "$(OutDir)"\include\nettle
+copy ..\umac.h "$(OutDir)"\include\nettle
+copy ..\xts.h "$(OutDir)"\include\nettle
+copy ..\yarrow.h "$(OutDir)"\include\nettle
+copy version.h "$(OutDir)"\include\nettle
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LESSERv3 $(OutDir)\licenses\nettle.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\nettle-stdint.h (
+del ..\nettle-stdint.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\nettle (
+rd /s /q "$(OutDir)"\include\nettle
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\nettle (
+rmdir /s /q "$(OutDir)"\include\nettle
+)
+if exist $(OutDir)\licenses\nettle.txt (
+del /f /q $(OutDir)\licenses\nettle.txt
+)</Command>
+    </CustomBuildStep>
+    <YASM>
+      <Preprocessor>1</Preprocessor>
+      <Parser>1</Parser>
+    </YASM>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4146;4267;4098;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>libgmp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\nettle
+copy ..\aes.h "$(OutDir)"\include\nettle
+copy ..\arcfour.h "$(OutDir)"\include\nettle
+copy ..\arctwo.h "$(OutDir)"\include\nettle
+copy ..\asn1.h "$(OutDir)"\include\nettle
+copy ..\base16.h "$(OutDir)"\include\nettle
+copy ..\base64.h "$(OutDir)"\include\nettle
+copy ..\bignum.h "$(OutDir)"\include\nettle
+copy ..\blowfish.h "$(OutDir)"\include\nettle
+copy ..\buffer.h "$(OutDir)"\include\nettle
+copy ..\camellia.h "$(OutDir)"\include\nettle
+copy ..\cast128.h "$(OutDir)"\include\nettle
+copy ..\cbc.h "$(OutDir)"\include\nettle
+copy ..\ccm.h "$(OutDir)"\include\nettle
+copy ..\cfb.h "$(OutDir)"\include\nettle
+copy ..\chacha.h "$(OutDir)"\include\nettle
+copy ..\chacha-poly1305.h "$(OutDir)"\include\nettle
+copy ..\cmac.h "$(OutDir)"\include\nettle
+copy ..\curve25519.h "$(OutDir)"\include\nettle
+copy ..\curve448.h "$(OutDir)"\include\nettle
+copy ..\ctr.h "$(OutDir)"\include\nettle
+copy ..\des.h "$(OutDir)"\include\nettle
+copy ..\dsa.h "$(OutDir)"\include\nettle
+copy ..\dsa-compat.h "$(OutDir)"\include\nettle
+copy ..\eax.h "$(OutDir)"\include\nettle
+copy ..\ecc.h "$(OutDir)"\include\nettle
+copy ..\ecc-curve.h "$(OutDir)"\include\nettle
+copy ..\ecdsa.h "$(OutDir)"\include\nettle
+copy ..\eddsa.h "$(OutDir)"\include\nettle
+copy ..\gcm.h "$(OutDir)"\include\nettle
+copy ..\gostdsa.h "$(OutDir)"\include\nettle
+copy ..\gosthash94.h "$(OutDir)"\include\nettle
+copy ..\hmac.h "$(OutDir)"\include\nettle
+copy ..\hkdf.h "$(OutDir)"\include\nettle
+copy ..\knuth-lfib.h "$(OutDir)"\include\nettle
+copy ..\macros.h "$(OutDir)"\include\nettle
+copy ..\md2.h "$(OutDir)"\include\nettle
+copy ..\md4.h "$(OutDir)"\include\nettle
+copy ..\md5.h "$(OutDir)"\include\nettle
+copy ..\md5-compat.h "$(OutDir)"\include\nettle
+copy ..\memops.h "$(OutDir)"\include\nettle
+copy ..\memxor.h "$(OutDir)"\include\nettle
+copy ..\nettle-meta.h "$(OutDir)"\include\nettle
+copy ..\nettle-types.h "$(OutDir)"\include\nettle
+copy ..\pbkdf2.h "$(OutDir)"\include\nettle
+copy ..\pgp.h "$(OutDir)"\include\nettle
+copy ..\pkcs1.h "$(OutDir)"\include\nettle
+copy ..\pss.h "$(OutDir)"\include\nettle
+copy ..\pss-mgf1.h "$(OutDir)"\include\nettle
+copy ..\poly1305.h "$(OutDir)"\include\nettle
+copy ..\realloc.h "$(OutDir)"\include\nettle
+copy ..\ripemd160.h "$(OutDir)"\include\nettle
+copy ..\rsa.h "$(OutDir)"\include\nettle
+copy ..\salsa20.h "$(OutDir)"\include\nettle
+copy ..\serpent.h "$(OutDir)"\include\nettle
+copy ..\sexp.h "$(OutDir)"\include\nettle
+copy ..\sha.h "$(OutDir)"\include\nettle
+copy ..\sha1.h "$(OutDir)"\include\nettle
+copy ..\sha2.h "$(OutDir)"\include\nettle
+copy ..\sha3.h "$(OutDir)"\include\nettle
+copy ..\siv-cmac.h "$(OutDir)"\include\nettle
+copy ..\streebog.h "$(OutDir)"\include\nettle
+copy ..\twofish.h "$(OutDir)"\include\nettle
+copy ..\umac.h "$(OutDir)"\include\nettle
+copy ..\xts.h "$(OutDir)"\include\nettle
+copy ..\yarrow.h "$(OutDir)"\include\nettle
+copy version.h "$(OutDir)"\include\nettle
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LESSERv3 $(OutDir)\licenses\nettle.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\nettle-stdint.h (
+del ..\nettle-stdint.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\nettle (
+rd /s /q "$(OutDir)"\include\nettle
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\nettle (
+rmdir /s /q "$(OutDir)"\include\nettle
+)
+if exist $(OutDir)\licenses\nettle.txt (
+del /f /q $(OutDir)\licenses\nettle.txt
+)</Command>
+    </CustomBuildStep>
+    <YASM>
+      <Preprocessor>1</Preprocessor>
+      <Parser>1</Parser>
+    </YASM>
+    <ProjectReference />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4146;4267;4098;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>libgmp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\nettle
+copy ..\aes.h "$(OutDir)"\include\nettle
+copy ..\arcfour.h "$(OutDir)"\include\nettle
+copy ..\arctwo.h "$(OutDir)"\include\nettle
+copy ..\asn1.h "$(OutDir)"\include\nettle
+copy ..\base16.h "$(OutDir)"\include\nettle
+copy ..\base64.h "$(OutDir)"\include\nettle
+copy ..\bignum.h "$(OutDir)"\include\nettle
+copy ..\blowfish.h "$(OutDir)"\include\nettle
+copy ..\buffer.h "$(OutDir)"\include\nettle
+copy ..\camellia.h "$(OutDir)"\include\nettle
+copy ..\cast128.h "$(OutDir)"\include\nettle
+copy ..\cbc.h "$(OutDir)"\include\nettle
+copy ..\ccm.h "$(OutDir)"\include\nettle
+copy ..\cfb.h "$(OutDir)"\include\nettle
+copy ..\chacha.h "$(OutDir)"\include\nettle
+copy ..\chacha-poly1305.h "$(OutDir)"\include\nettle
+copy ..\cmac.h "$(OutDir)"\include\nettle
+copy ..\curve25519.h "$(OutDir)"\include\nettle
+copy ..\curve448.h "$(OutDir)"\include\nettle
+copy ..\ctr.h "$(OutDir)"\include\nettle
+copy ..\des.h "$(OutDir)"\include\nettle
+copy ..\dsa.h "$(OutDir)"\include\nettle
+copy ..\dsa-compat.h "$(OutDir)"\include\nettle
+copy ..\eax.h "$(OutDir)"\include\nettle
+copy ..\ecc.h "$(OutDir)"\include\nettle
+copy ..\ecc-curve.h "$(OutDir)"\include\nettle
+copy ..\ecdsa.h "$(OutDir)"\include\nettle
+copy ..\eddsa.h "$(OutDir)"\include\nettle
+copy ..\gcm.h "$(OutDir)"\include\nettle
+copy ..\gostdsa.h "$(OutDir)"\include\nettle
+copy ..\gosthash94.h "$(OutDir)"\include\nettle
+copy ..\hmac.h "$(OutDir)"\include\nettle
+copy ..\hkdf.h "$(OutDir)"\include\nettle
+copy ..\knuth-lfib.h "$(OutDir)"\include\nettle
+copy ..\macros.h "$(OutDir)"\include\nettle
+copy ..\md2.h "$(OutDir)"\include\nettle
+copy ..\md4.h "$(OutDir)"\include\nettle
+copy ..\md5.h "$(OutDir)"\include\nettle
+copy ..\md5-compat.h "$(OutDir)"\include\nettle
+copy ..\memops.h "$(OutDir)"\include\nettle
+copy ..\memxor.h "$(OutDir)"\include\nettle
+copy ..\nettle-meta.h "$(OutDir)"\include\nettle
+copy ..\nettle-types.h "$(OutDir)"\include\nettle
+copy ..\pbkdf2.h "$(OutDir)"\include\nettle
+copy ..\pgp.h "$(OutDir)"\include\nettle
+copy ..\pkcs1.h "$(OutDir)"\include\nettle
+copy ..\pss.h "$(OutDir)"\include\nettle
+copy ..\pss-mgf1.h "$(OutDir)"\include\nettle
+copy ..\poly1305.h "$(OutDir)"\include\nettle
+copy ..\realloc.h "$(OutDir)"\include\nettle
+copy ..\ripemd160.h "$(OutDir)"\include\nettle
+copy ..\rsa.h "$(OutDir)"\include\nettle
+copy ..\salsa20.h "$(OutDir)"\include\nettle
+copy ..\serpent.h "$(OutDir)"\include\nettle
+copy ..\sexp.h "$(OutDir)"\include\nettle
+copy ..\sha.h "$(OutDir)"\include\nettle
+copy ..\sha1.h "$(OutDir)"\include\nettle
+copy ..\sha2.h "$(OutDir)"\include\nettle
+copy ..\sha3.h "$(OutDir)"\include\nettle
+copy ..\siv-cmac.h "$(OutDir)"\include\nettle
+copy ..\streebog.h "$(OutDir)"\include\nettle
+copy ..\twofish.h "$(OutDir)"\include\nettle
+copy ..\umac.h "$(OutDir)"\include\nettle
+copy ..\xts.h "$(OutDir)"\include\nettle
+copy ..\yarrow.h "$(OutDir)"\include\nettle
+copy version.h "$(OutDir)"\include\nettle
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LESSERv3 $(OutDir)\licenses\nettle.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\nettle-stdint.h (
+del ..\nettle-stdint.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\nettle (
+rd /s /q "$(OutDir)"\include\nettle
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\nettle (
+rmdir /s /q "$(OutDir)"\include\nettle
+)
+if exist $(OutDir)\licenses\nettle.txt (
+del /f /q $(OutDir)\licenses\nettle.txt
+)</Command>
+    </CustomBuildStep>
+    <YASM>
+      <Preprocessor>1</Preprocessor>
+      <Parser>1</Parser>
+    </YASM>
+    <ProjectReference />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4146;4267;4098;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libnettle.def</ModuleDefinitionFile>
+      <AdditionalDependencies>gmp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\nettle
+copy ..\aes.h "$(OutDir)"\include\nettle
+copy ..\arcfour.h "$(OutDir)"\include\nettle
+copy ..\arctwo.h "$(OutDir)"\include\nettle
+copy ..\asn1.h "$(OutDir)"\include\nettle
+copy ..\base16.h "$(OutDir)"\include\nettle
+copy ..\base64.h "$(OutDir)"\include\nettle
+copy ..\bignum.h "$(OutDir)"\include\nettle
+copy ..\blowfish.h "$(OutDir)"\include\nettle
+copy ..\buffer.h "$(OutDir)"\include\nettle
+copy ..\camellia.h "$(OutDir)"\include\nettle
+copy ..\cast128.h "$(OutDir)"\include\nettle
+copy ..\cbc.h "$(OutDir)"\include\nettle
+copy ..\ccm.h "$(OutDir)"\include\nettle
+copy ..\cfb.h "$(OutDir)"\include\nettle
+copy ..\chacha.h "$(OutDir)"\include\nettle
+copy ..\chacha-poly1305.h "$(OutDir)"\include\nettle
+copy ..\cmac.h "$(OutDir)"\include\nettle
+copy ..\curve25519.h "$(OutDir)"\include\nettle
+copy ..\curve448.h "$(OutDir)"\include\nettle
+copy ..\ctr.h "$(OutDir)"\include\nettle
+copy ..\des.h "$(OutDir)"\include\nettle
+copy ..\dsa.h "$(OutDir)"\include\nettle
+copy ..\dsa-compat.h "$(OutDir)"\include\nettle
+copy ..\eax.h "$(OutDir)"\include\nettle
+copy ..\ecc.h "$(OutDir)"\include\nettle
+copy ..\ecc-curve.h "$(OutDir)"\include\nettle
+copy ..\ecdsa.h "$(OutDir)"\include\nettle
+copy ..\eddsa.h "$(OutDir)"\include\nettle
+copy ..\gcm.h "$(OutDir)"\include\nettle
+copy ..\gostdsa.h "$(OutDir)"\include\nettle
+copy ..\gosthash94.h "$(OutDir)"\include\nettle
+copy ..\hmac.h "$(OutDir)"\include\nettle
+copy ..\hkdf.h "$(OutDir)"\include\nettle
+copy ..\knuth-lfib.h "$(OutDir)"\include\nettle
+copy ..\macros.h "$(OutDir)"\include\nettle
+copy ..\md2.h "$(OutDir)"\include\nettle
+copy ..\md4.h "$(OutDir)"\include\nettle
+copy ..\md5.h "$(OutDir)"\include\nettle
+copy ..\md5-compat.h "$(OutDir)"\include\nettle
+copy ..\memops.h "$(OutDir)"\include\nettle
+copy ..\memxor.h "$(OutDir)"\include\nettle
+copy ..\nettle-meta.h "$(OutDir)"\include\nettle
+copy ..\nettle-types.h "$(OutDir)"\include\nettle
+copy ..\pbkdf2.h "$(OutDir)"\include\nettle
+copy ..\pgp.h "$(OutDir)"\include\nettle
+copy ..\pkcs1.h "$(OutDir)"\include\nettle
+copy ..\pss.h "$(OutDir)"\include\nettle
+copy ..\pss-mgf1.h "$(OutDir)"\include\nettle
+copy ..\poly1305.h "$(OutDir)"\include\nettle
+copy ..\realloc.h "$(OutDir)"\include\nettle
+copy ..\ripemd160.h "$(OutDir)"\include\nettle
+copy ..\rsa.h "$(OutDir)"\include\nettle
+copy ..\salsa20.h "$(OutDir)"\include\nettle
+copy ..\serpent.h "$(OutDir)"\include\nettle
+copy ..\sexp.h "$(OutDir)"\include\nettle
+copy ..\sha.h "$(OutDir)"\include\nettle
+copy ..\sha1.h "$(OutDir)"\include\nettle
+copy ..\sha2.h "$(OutDir)"\include\nettle
+copy ..\sha3.h "$(OutDir)"\include\nettle
+copy ..\siv-cmac.h "$(OutDir)"\include\nettle
+copy ..\streebog.h "$(OutDir)"\include\nettle
+copy ..\twofish.h "$(OutDir)"\include\nettle
+copy ..\umac.h "$(OutDir)"\include\nettle
+copy ..\xts.h "$(OutDir)"\include\nettle
+copy ..\yarrow.h "$(OutDir)"\include\nettle
+copy version.h "$(OutDir)"\include\nettle
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LESSERv3 $(OutDir)\licenses\nettle.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\nettle-stdint.h (
+del ..\nettle-stdint.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\nettle (
+rd /s /q "$(OutDir)"\include\nettle
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\nettle (
+rmdir /s /q "$(OutDir)"\include\nettle
+)
+if exist $(OutDir)\licenses\nettle.txt (
+del /f /q $(OutDir)\licenses\nettle.txt
+)</Command>
+    </CustomBuildStep>
+    <YASM>
+      <Preprocessor>1</Preprocessor>
+      <Parser>1</Parser>
+    </YASM>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLStaticDeps|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4146;4267;4098;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libnettle.def</ModuleDefinitionFile>
+      <AdditionalDependencies>libgmp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\nettle
+copy ..\aes.h "$(OutDir)"\include\nettle
+copy ..\arcfour.h "$(OutDir)"\include\nettle
+copy ..\arctwo.h "$(OutDir)"\include\nettle
+copy ..\asn1.h "$(OutDir)"\include\nettle
+copy ..\base16.h "$(OutDir)"\include\nettle
+copy ..\base64.h "$(OutDir)"\include\nettle
+copy ..\bignum.h "$(OutDir)"\include\nettle
+copy ..\blowfish.h "$(OutDir)"\include\nettle
+copy ..\buffer.h "$(OutDir)"\include\nettle
+copy ..\camellia.h "$(OutDir)"\include\nettle
+copy ..\cast128.h "$(OutDir)"\include\nettle
+copy ..\cbc.h "$(OutDir)"\include\nettle
+copy ..\ccm.h "$(OutDir)"\include\nettle
+copy ..\cfb.h "$(OutDir)"\include\nettle
+copy ..\chacha.h "$(OutDir)"\include\nettle
+copy ..\chacha-poly1305.h "$(OutDir)"\include\nettle
+copy ..\cmac.h "$(OutDir)"\include\nettle
+copy ..\curve25519.h "$(OutDir)"\include\nettle
+copy ..\curve448.h "$(OutDir)"\include\nettle
+copy ..\ctr.h "$(OutDir)"\include\nettle
+copy ..\des.h "$(OutDir)"\include\nettle
+copy ..\dsa.h "$(OutDir)"\include\nettle
+copy ..\dsa-compat.h "$(OutDir)"\include\nettle
+copy ..\eax.h "$(OutDir)"\include\nettle
+copy ..\ecc.h "$(OutDir)"\include\nettle
+copy ..\ecc-curve.h "$(OutDir)"\include\nettle
+copy ..\ecdsa.h "$(OutDir)"\include\nettle
+copy ..\eddsa.h "$(OutDir)"\include\nettle
+copy ..\gcm.h "$(OutDir)"\include\nettle
+copy ..\gostdsa.h "$(OutDir)"\include\nettle
+copy ..\gosthash94.h "$(OutDir)"\include\nettle
+copy ..\hmac.h "$(OutDir)"\include\nettle
+copy ..\hkdf.h "$(OutDir)"\include\nettle
+copy ..\knuth-lfib.h "$(OutDir)"\include\nettle
+copy ..\macros.h "$(OutDir)"\include\nettle
+copy ..\md2.h "$(OutDir)"\include\nettle
+copy ..\md4.h "$(OutDir)"\include\nettle
+copy ..\md5.h "$(OutDir)"\include\nettle
+copy ..\md5-compat.h "$(OutDir)"\include\nettle
+copy ..\memops.h "$(OutDir)"\include\nettle
+copy ..\memxor.h "$(OutDir)"\include\nettle
+copy ..\nettle-meta.h "$(OutDir)"\include\nettle
+copy ..\nettle-types.h "$(OutDir)"\include\nettle
+copy ..\pbkdf2.h "$(OutDir)"\include\nettle
+copy ..\pgp.h "$(OutDir)"\include\nettle
+copy ..\pkcs1.h "$(OutDir)"\include\nettle
+copy ..\pss.h "$(OutDir)"\include\nettle
+copy ..\pss-mgf1.h "$(OutDir)"\include\nettle
+copy ..\poly1305.h "$(OutDir)"\include\nettle
+copy ..\realloc.h "$(OutDir)"\include\nettle
+copy ..\ripemd160.h "$(OutDir)"\include\nettle
+copy ..\rsa.h "$(OutDir)"\include\nettle
+copy ..\salsa20.h "$(OutDir)"\include\nettle
+copy ..\serpent.h "$(OutDir)"\include\nettle
+copy ..\sexp.h "$(OutDir)"\include\nettle
+copy ..\sha.h "$(OutDir)"\include\nettle
+copy ..\sha1.h "$(OutDir)"\include\nettle
+copy ..\sha2.h "$(OutDir)"\include\nettle
+copy ..\sha3.h "$(OutDir)"\include\nettle
+copy ..\siv-cmac.h "$(OutDir)"\include\nettle
+copy ..\streebog.h "$(OutDir)"\include\nettle
+copy ..\twofish.h "$(OutDir)"\include\nettle
+copy ..\umac.h "$(OutDir)"\include\nettle
+copy ..\xts.h "$(OutDir)"\include\nettle
+copy ..\yarrow.h "$(OutDir)"\include\nettle
+copy version.h "$(OutDir)"\include\nettle
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LESSERv3 $(OutDir)\licenses\nettle.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\nettle-stdint.h (
+del ..\nettle-stdint.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\nettle (
+rd /s /q "$(OutDir)"\include\nettle
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\nettle (
+rmdir /s /q "$(OutDir)"\include\nettle
+)
+if exist $(OutDir)\licenses\nettle.txt (
+del /f /q $(OutDir)\licenses\nettle.txt
+)</Command>
+    </CustomBuildStep>
+    <YASM>
+      <Preprocessor>1</Preprocessor>
+      <Parser>1</Parser>
+    </YASM>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4146;4267;4098;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libnettle.def</ModuleDefinitionFile>
+      <AdditionalDependencies>gmp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\nettle
+copy ..\aes.h "$(OutDir)"\include\nettle
+copy ..\arcfour.h "$(OutDir)"\include\nettle
+copy ..\arctwo.h "$(OutDir)"\include\nettle
+copy ..\asn1.h "$(OutDir)"\include\nettle
+copy ..\base16.h "$(OutDir)"\include\nettle
+copy ..\base64.h "$(OutDir)"\include\nettle
+copy ..\bignum.h "$(OutDir)"\include\nettle
+copy ..\blowfish.h "$(OutDir)"\include\nettle
+copy ..\buffer.h "$(OutDir)"\include\nettle
+copy ..\camellia.h "$(OutDir)"\include\nettle
+copy ..\cast128.h "$(OutDir)"\include\nettle
+copy ..\cbc.h "$(OutDir)"\include\nettle
+copy ..\ccm.h "$(OutDir)"\include\nettle
+copy ..\cfb.h "$(OutDir)"\include\nettle
+copy ..\chacha.h "$(OutDir)"\include\nettle
+copy ..\chacha-poly1305.h "$(OutDir)"\include\nettle
+copy ..\cmac.h "$(OutDir)"\include\nettle
+copy ..\curve25519.h "$(OutDir)"\include\nettle
+copy ..\curve448.h "$(OutDir)"\include\nettle
+copy ..\ctr.h "$(OutDir)"\include\nettle
+copy ..\des.h "$(OutDir)"\include\nettle
+copy ..\dsa.h "$(OutDir)"\include\nettle
+copy ..\dsa-compat.h "$(OutDir)"\include\nettle
+copy ..\eax.h "$(OutDir)"\include\nettle
+copy ..\ecc.h "$(OutDir)"\include\nettle
+copy ..\ecc-curve.h "$(OutDir)"\include\nettle
+copy ..\ecdsa.h "$(OutDir)"\include\nettle
+copy ..\eddsa.h "$(OutDir)"\include\nettle
+copy ..\gcm.h "$(OutDir)"\include\nettle
+copy ..\gostdsa.h "$(OutDir)"\include\nettle
+copy ..\gosthash94.h "$(OutDir)"\include\nettle
+copy ..\hmac.h "$(OutDir)"\include\nettle
+copy ..\hkdf.h "$(OutDir)"\include\nettle
+copy ..\knuth-lfib.h "$(OutDir)"\include\nettle
+copy ..\macros.h "$(OutDir)"\include\nettle
+copy ..\md2.h "$(OutDir)"\include\nettle
+copy ..\md4.h "$(OutDir)"\include\nettle
+copy ..\md5.h "$(OutDir)"\include\nettle
+copy ..\md5-compat.h "$(OutDir)"\include\nettle
+copy ..\memops.h "$(OutDir)"\include\nettle
+copy ..\memxor.h "$(OutDir)"\include\nettle
+copy ..\nettle-meta.h "$(OutDir)"\include\nettle
+copy ..\nettle-types.h "$(OutDir)"\include\nettle
+copy ..\pbkdf2.h "$(OutDir)"\include\nettle
+copy ..\pgp.h "$(OutDir)"\include\nettle
+copy ..\pkcs1.h "$(OutDir)"\include\nettle
+copy ..\pss.h "$(OutDir)"\include\nettle
+copy ..\pss-mgf1.h "$(OutDir)"\include\nettle
+copy ..\poly1305.h "$(OutDir)"\include\nettle
+copy ..\realloc.h "$(OutDir)"\include\nettle
+copy ..\ripemd160.h "$(OutDir)"\include\nettle
+copy ..\rsa.h "$(OutDir)"\include\nettle
+copy ..\salsa20.h "$(OutDir)"\include\nettle
+copy ..\serpent.h "$(OutDir)"\include\nettle
+copy ..\sexp.h "$(OutDir)"\include\nettle
+copy ..\sha.h "$(OutDir)"\include\nettle
+copy ..\sha1.h "$(OutDir)"\include\nettle
+copy ..\sha2.h "$(OutDir)"\include\nettle
+copy ..\sha3.h "$(OutDir)"\include\nettle
+copy ..\siv-cmac.h "$(OutDir)"\include\nettle
+copy ..\streebog.h "$(OutDir)"\include\nettle
+copy ..\twofish.h "$(OutDir)"\include\nettle
+copy ..\umac.h "$(OutDir)"\include\nettle
+copy ..\xts.h "$(OutDir)"\include\nettle
+copy ..\yarrow.h "$(OutDir)"\include\nettle
+copy version.h "$(OutDir)"\include\nettle
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LESSERv3 $(OutDir)\licenses\nettle.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\nettle-stdint.h (
+del ..\nettle-stdint.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\nettle (
+rd /s /q "$(OutDir)"\include\nettle
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\nettle (
+rmdir /s /q "$(OutDir)"\include\nettle
+)
+if exist $(OutDir)\licenses\nettle.txt (
+del /f /q $(OutDir)\licenses\nettle.txt
+)</Command>
+    </CustomBuildStep>
+    <YASM>
+      <Preprocessor>1</Preprocessor>
+      <Parser>1</Parser>
+    </YASM>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLStaticDeps|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4146;4267;4098;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libnettle.def</ModuleDefinitionFile>
+      <AdditionalDependencies>libgmp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\nettle
+copy ..\aes.h "$(OutDir)"\include\nettle
+copy ..\arcfour.h "$(OutDir)"\include\nettle
+copy ..\arctwo.h "$(OutDir)"\include\nettle
+copy ..\asn1.h "$(OutDir)"\include\nettle
+copy ..\base16.h "$(OutDir)"\include\nettle
+copy ..\base64.h "$(OutDir)"\include\nettle
+copy ..\bignum.h "$(OutDir)"\include\nettle
+copy ..\blowfish.h "$(OutDir)"\include\nettle
+copy ..\buffer.h "$(OutDir)"\include\nettle
+copy ..\camellia.h "$(OutDir)"\include\nettle
+copy ..\cast128.h "$(OutDir)"\include\nettle
+copy ..\cbc.h "$(OutDir)"\include\nettle
+copy ..\ccm.h "$(OutDir)"\include\nettle
+copy ..\cfb.h "$(OutDir)"\include\nettle
+copy ..\chacha.h "$(OutDir)"\include\nettle
+copy ..\chacha-poly1305.h "$(OutDir)"\include\nettle
+copy ..\cmac.h "$(OutDir)"\include\nettle
+copy ..\curve25519.h "$(OutDir)"\include\nettle
+copy ..\curve448.h "$(OutDir)"\include\nettle
+copy ..\ctr.h "$(OutDir)"\include\nettle
+copy ..\des.h "$(OutDir)"\include\nettle
+copy ..\dsa.h "$(OutDir)"\include\nettle
+copy ..\dsa-compat.h "$(OutDir)"\include\nettle
+copy ..\eax.h "$(OutDir)"\include\nettle
+copy ..\ecc.h "$(OutDir)"\include\nettle
+copy ..\ecc-curve.h "$(OutDir)"\include\nettle
+copy ..\ecdsa.h "$(OutDir)"\include\nettle
+copy ..\eddsa.h "$(OutDir)"\include\nettle
+copy ..\gcm.h "$(OutDir)"\include\nettle
+copy ..\gostdsa.h "$(OutDir)"\include\nettle
+copy ..\gosthash94.h "$(OutDir)"\include\nettle
+copy ..\hmac.h "$(OutDir)"\include\nettle
+copy ..\hkdf.h "$(OutDir)"\include\nettle
+copy ..\knuth-lfib.h "$(OutDir)"\include\nettle
+copy ..\macros.h "$(OutDir)"\include\nettle
+copy ..\md2.h "$(OutDir)"\include\nettle
+copy ..\md4.h "$(OutDir)"\include\nettle
+copy ..\md5.h "$(OutDir)"\include\nettle
+copy ..\md5-compat.h "$(OutDir)"\include\nettle
+copy ..\memops.h "$(OutDir)"\include\nettle
+copy ..\memxor.h "$(OutDir)"\include\nettle
+copy ..\nettle-meta.h "$(OutDir)"\include\nettle
+copy ..\nettle-types.h "$(OutDir)"\include\nettle
+copy ..\pbkdf2.h "$(OutDir)"\include\nettle
+copy ..\pgp.h "$(OutDir)"\include\nettle
+copy ..\pkcs1.h "$(OutDir)"\include\nettle
+copy ..\pss.h "$(OutDir)"\include\nettle
+copy ..\pss-mgf1.h "$(OutDir)"\include\nettle
+copy ..\poly1305.h "$(OutDir)"\include\nettle
+copy ..\realloc.h "$(OutDir)"\include\nettle
+copy ..\ripemd160.h "$(OutDir)"\include\nettle
+copy ..\rsa.h "$(OutDir)"\include\nettle
+copy ..\salsa20.h "$(OutDir)"\include\nettle
+copy ..\serpent.h "$(OutDir)"\include\nettle
+copy ..\sexp.h "$(OutDir)"\include\nettle
+copy ..\sha.h "$(OutDir)"\include\nettle
+copy ..\sha1.h "$(OutDir)"\include\nettle
+copy ..\sha2.h "$(OutDir)"\include\nettle
+copy ..\sha3.h "$(OutDir)"\include\nettle
+copy ..\siv-cmac.h "$(OutDir)"\include\nettle
+copy ..\streebog.h "$(OutDir)"\include\nettle
+copy ..\twofish.h "$(OutDir)"\include\nettle
+copy ..\umac.h "$(OutDir)"\include\nettle
+copy ..\xts.h "$(OutDir)"\include\nettle
+copy ..\yarrow.h "$(OutDir)"\include\nettle
+copy version.h "$(OutDir)"\include\nettle
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LESSERv3 $(OutDir)\licenses\nettle.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\nettle-stdint.h (
+del ..\nettle-stdint.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\nettle (
+rd /s /q "$(OutDir)"\include\nettle
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\nettle (
+rmdir /s /q "$(OutDir)"\include\nettle
+)
+if exist $(OutDir)\licenses\nettle.txt (
+del /f /q $(OutDir)\licenses\nettle.txt
+)</Command>
+    </CustomBuildStep>
+    <YASM>
+      <Preprocessor>1</Preprocessor>
+      <Parser>1</Parser>
+    </YASM>
+  </ItemDefinitionGroup>
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\yasm.targets" />
+  </ImportGroup>
+</Project>

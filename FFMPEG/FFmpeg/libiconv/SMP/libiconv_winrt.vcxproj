@@ -1,0 +1,395 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AB8BB76F-D3FF-434E-A85E-7FFC0893EC9B}</ProjectGuid>
+    <RootNamespace>iconv</RootNamespace>
+  </PropertyGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="smp_winrt.props" />
+    <Import Project="libiconv_files.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWinRT|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\;.\lib;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BUILDING_LIBICONV;LIBDIR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4018;4273;4028;4090;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy iconv.h "$(OutDir)"\include
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\iconv.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\lib\config.h (
+del ..\lib\config.h
+)
+if exist ..\libcharset\config.h (
+del ..\libcharset\config.h
+)
+if exist ..\include\iconv.h (
+del ..\include\iconv.h
+)
+if exist ..\libcharset\include\libcharset.h (
+del ..\libcharset\include\libcharset.h
+)
+if exist ..\libcharset\include\localcharset.h (
+del ..\libcharset\include\localcharset.h
+)
+if exist "$(OutDir)"\include\iconv.h (
+del "$(OutDir)"\include\iconv.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\iconv.h (
+del /f /q "$(OutDir)"\include\iconv.h
+)
+if exist $(OutDir)\licenses\iconv.txt (
+del /f /q $(OutDir)\licenses\iconv.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWinRT|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\;.\lib;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BUILDING_LIBICONV;LIBDIR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4018;4273;4028;4090;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy iconv.h "$(OutDir)"\include
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\iconv.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\lib\config.h (
+del ..\lib\config.h
+)
+if exist ..\libcharset\config.h (
+del ..\libcharset\config.h
+)
+if exist ..\include\iconv.h (
+del ..\include\iconv.h
+)
+if exist ..\libcharset\include\libcharset.h (
+del ..\libcharset\include\libcharset.h
+)
+if exist ..\libcharset\include\localcharset.h (
+del ..\libcharset\include\localcharset.h
+)
+if exist "$(OutDir)"\include\iconv.h (
+del "$(OutDir)"\include\iconv.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\iconv.h (
+del /f /q "$(OutDir)"\include\iconv.h
+)
+if exist $(OutDir)\licenses\iconv.txt (
+del /f /q $(OutDir)\licenses\iconv.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLLWinRT|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\;.\lib;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BUILDING_LIBICONV;LIBDIR;LIBICONV_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4018;4273;4028;4090;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy iconv.h "$(OutDir)"\include
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\iconv.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\lib\config.h (
+del ..\lib\config.h
+)
+if exist ..\libcharset\config.h (
+del ..\libcharset\config.h
+)
+if exist ..\include\iconv.h (
+del ..\include\iconv.h
+)
+if exist ..\libcharset\include\libcharset.h (
+del ..\libcharset\include\libcharset.h
+)
+if exist ..\libcharset\include\localcharset.h (
+del ..\libcharset\include\localcharset.h
+)
+if exist "$(OutDir)"\include\iconv.h (
+del "$(OutDir)"\include\iconv.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\iconv.h (
+del /f /q "$(OutDir)"\include\iconv.h
+)
+if exist $(OutDir)\licenses\iconv.txt (
+del /f /q $(OutDir)\licenses\iconv.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLLWinRT|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\;.\lib;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BUILDING_LIBICONV;LIBDIR;LIBICONV_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4018;4273;4028;4090;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy iconv.h "$(OutDir)"\include
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\iconv.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\lib\config.h (
+del ..\lib\config.h
+)
+if exist ..\libcharset\config.h (
+del ..\libcharset\config.h
+)
+if exist ..\include\iconv.h (
+del ..\include\iconv.h
+)
+if exist ..\libcharset\include\libcharset.h (
+del ..\libcharset\include\libcharset.h
+)
+if exist ..\libcharset\include\localcharset.h (
+del ..\libcharset\include\localcharset.h
+)
+if exist "$(OutDir)"\include\iconv.h (
+del "$(OutDir)"\include\iconv.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\iconv.h (
+del /f /q "$(OutDir)"\include\iconv.h
+)
+if exist $(OutDir)\licenses\iconv.txt (
+del /f /q $(OutDir)\licenses\iconv.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWinRT|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\;.\lib;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BUILDING_LIBICONV;LIBDIR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4018;4273;4028;4090;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy iconv.h "$(OutDir)"\include
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\iconv.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\lib\config.h (
+del ..\lib\config.h
+)
+if exist ..\libcharset\config.h (
+del ..\libcharset\config.h
+)
+if exist ..\include\iconv.h (
+del ..\include\iconv.h
+)
+if exist ..\libcharset\include\libcharset.h (
+del ..\libcharset\include\libcharset.h
+)
+if exist ..\libcharset\include\localcharset.h (
+del ..\libcharset\include\localcharset.h
+)
+if exist "$(OutDir)"\include\iconv.h (
+del "$(OutDir)"\include\iconv.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\iconv.h (
+del /f /q "$(OutDir)"\include\iconv.h
+)
+if exist $(OutDir)\licenses\iconv.txt (
+del /f /q $(OutDir)\licenses\iconv.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWinRT|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\;.\lib;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BUILDING_LIBICONV;LIBDIR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4018;4273;4028;4090;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy iconv.h "$(OutDir)"\include
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\iconv.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\lib\config.h (
+del ..\lib\config.h
+)
+if exist ..\libcharset\config.h (
+del ..\libcharset\config.h
+)
+if exist ..\include\iconv.h (
+del ..\include\iconv.h
+)
+if exist ..\libcharset\include\libcharset.h (
+del ..\libcharset\include\libcharset.h
+)
+if exist ..\libcharset\include\localcharset.h (
+del ..\libcharset\include\localcharset.h
+)
+if exist "$(OutDir)"\include\iconv.h (
+del "$(OutDir)"\include\iconv.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\iconv.h (
+del /f /q "$(OutDir)"\include\iconv.h
+)
+if exist $(OutDir)\licenses\iconv.txt (
+del /f /q $(OutDir)\licenses\iconv.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLWinRT|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\;.\lib;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BUILDING_LIBICONV;LIBDIR;LIBICONV_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4018;4273;4028;4090;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy iconv.h "$(OutDir)"\include
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\iconv.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\lib\config.h (
+del ..\lib\config.h
+)
+if exist ..\libcharset\config.h (
+del ..\libcharset\config.h
+)
+if exist ..\include\iconv.h (
+del ..\include\iconv.h
+)
+if exist ..\libcharset\include\libcharset.h (
+del ..\libcharset\include\libcharset.h
+)
+if exist ..\libcharset\include\localcharset.h (
+del ..\libcharset\include\localcharset.h
+)
+if exist "$(OutDir)"\include\iconv.h (
+del "$(OutDir)"\include\iconv.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\iconv.h (
+del /f /q "$(OutDir)"\include\iconv.h
+)
+if exist $(OutDir)\licenses\iconv.txt (
+del /f /q $(OutDir)\licenses\iconv.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLWinRT|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\;.\lib;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BUILDING_LIBICONV;LIBDIR;LIBICONV_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4018;4273;4028;4090;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy iconv.h "$(OutDir)"\include
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\iconv.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\lib\config.h (
+del ..\lib\config.h
+)
+if exist ..\libcharset\config.h (
+del ..\libcharset\config.h
+)
+if exist ..\include\iconv.h (
+del ..\include\iconv.h
+)
+if exist ..\libcharset\include\libcharset.h (
+del ..\libcharset\include\libcharset.h
+)
+if exist ..\libcharset\include\localcharset.h (
+del ..\libcharset\include\localcharset.h
+)
+if exist "$(OutDir)"\include\iconv.h (
+del "$(OutDir)"\include\iconv.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\iconv.h (
+del /f /q "$(OutDir)"\include\iconv.h
+)
+if exist $(OutDir)\licenses\iconv.txt (
+del /f /q $(OutDir)\licenses\iconv.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+</Project>

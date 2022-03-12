@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0D0F22AE-15B2-414B-9BCC-2D1C2278AA87}</ProjectGuid>
+    <RootNamespace>theora</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="smp_deps.props" />
+    <Import Project="libtheora_files.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>_BIND_TO_CURRENT_CRT_VERSION;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4018;4244;4267;4700;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>liboggd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\theora
+copy ..\include\theora\*.h "$(OutDir)"\include\theora
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\theora.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\ogg\ogg.h (
+mkdir "$(OutDir)"\include\ogg
+copy /y "$(ProjectDir)"\..\..\prebuilt\include\ogg\*.h "$(OutDir)"\include\ogg\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\theora (
+rd /s /q "$(OutDir)"\include\theora
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\theora (
+rmdir /s /q "$(OutDir)"\include\theora
+)
+if exist $(OutDir)\licenses\theora.txt (
+del /f /q $(OutDir)\licenses\theora.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_BIND_TO_CURRENT_CRT_VERSION;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4018;4244;4267;4700;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>liboggd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\theora
+copy ..\include\theora\*.h "$(OutDir)"\include\theora
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\theora.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\ogg\ogg.h (
+mkdir "$(OutDir)"\include\ogg
+copy /y "$(ProjectDir)"\..\..\prebuilt\include\ogg\*.h "$(OutDir)"\include\ogg\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\theora (
+rd /s /q "$(OutDir)"\include\theora
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\theora (
+rmdir /s /q "$(OutDir)"\include\theora
+)
+if exist $(OutDir)\licenses\theora.txt (
+del /f /q $(OutDir)\licenses\theora.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>_BIND_TO_CURRENT_CRT_VERSION;LIBTHEORA_EXPORTS;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4018;4244;4267;4700;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libtheora.def</ModuleDefinitionFile>
+      <AdditionalDependencies>oggd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\theora
+copy ..\include\theora\*.h "$(OutDir)"\include\theora
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\theora.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\ogg\ogg.h (
+mkdir "$(OutDir)"\include\ogg
+copy /y "$(ProjectDir)"\..\..\prebuilt\include\ogg\*.h "$(OutDir)"\include\ogg\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\theora (
+rd /s /q "$(OutDir)"\include\theora
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\theora (
+rmdir /s /q "$(OutDir)"\include\theora
+)
+if exist $(OutDir)\licenses\theora.txt (
+del /f /q $(OutDir)\licenses\theora.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_BIND_TO_CURRENT_CRT_VERSION;LIBTHEORA_EXPORTS;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4018;4244;4267;4700;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libtheora.def</ModuleDefinitionFile>
+      <AdditionalDependencies>oggd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\theora
+copy ..\include\theora\*.h "$(OutDir)"\include\theora
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\theora.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\ogg\ogg.h (
+mkdir "$(OutDir)"\include\ogg
+copy /y "$(ProjectDir)"\..\..\prebuilt\include\ogg\*.h "$(OutDir)"\include\ogg\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\theora (
+rd /s /q "$(OutDir)"\include\theora
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\theora (
+rmdir /s /q "$(OutDir)"\include\theora
+)
+if exist $(OutDir)\licenses\theora.txt (
+del /f /q $(OutDir)\licenses\theora.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>_BIND_TO_CURRENT_CRT_VERSION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4018;4244;4267;4700;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>libogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\theora
+copy ..\include\theora\*.h "$(OutDir)"\include\theora
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\theora.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\ogg\ogg.h (
+mkdir "$(OutDir)"\include\ogg
+copy /y "$(ProjectDir)"\..\..\prebuilt\include\ogg\*.h "$(OutDir)"\include\ogg\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\theora (
+rd /s /q "$(OutDir)"\include\theora
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\theora (
+rmdir /s /q "$(OutDir)"\include\theora
+)
+if exist $(OutDir)\licenses\theora.txt (
+del /f /q $(OutDir)\licenses\theora.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_BIND_TO_CURRENT_CRT_VERSION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4018;4244;4267;4700;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>libogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\theora
+copy ..\include\theora\*.h "$(OutDir)"\include\theora
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\theora.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\ogg\ogg.h (
+mkdir "$(OutDir)"\include\ogg
+copy /y "$(ProjectDir)"\..\..\prebuilt\include\ogg\*.h "$(OutDir)"\include\ogg\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\theora (
+rd /s /q "$(OutDir)"\include\theora
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\theora (
+rmdir /s /q "$(OutDir)"\include\theora
+)
+if exist $(OutDir)\licenses\theora.txt (
+del /f /q $(OutDir)\licenses\theora.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>_BIND_TO_CURRENT_CRT_VERSION;LIBTHEORA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4018;4244;4267;4700;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libtheora.def</ModuleDefinitionFile>
+      <AdditionalDependencies>ogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\theora
+copy ..\include\theora\*.h "$(OutDir)"\include\theora
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\theora.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\ogg\ogg.h (
+mkdir "$(OutDir)"\include\ogg
+copy /y "$(ProjectDir)"\..\..\prebuilt\include\ogg\*.h "$(OutDir)"\include\ogg\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\theora (
+rd /s /q "$(OutDir)"\include\theora
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\theora (
+rmdir /s /q "$(OutDir)"\include\theora
+)
+if exist $(OutDir)\licenses\theora.txt (
+del /f /q $(OutDir)\licenses\theora.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLStaticDeps|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>_BIND_TO_CURRENT_CRT_VERSION;LIBTHEORA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4018;4244;4267;4700;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libtheora.def</ModuleDefinitionFile>
+      <AdditionalDependencies>libogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\theora
+copy ..\include\theora\*.h "$(OutDir)"\include\theora
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\theora.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\ogg\ogg.h (
+mkdir "$(OutDir)"\include\ogg
+copy /y "$(ProjectDir)"\..\..\prebuilt\include\ogg\*.h "$(OutDir)"\include\ogg\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\theora (
+rd /s /q "$(OutDir)"\include\theora
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\theora (
+rmdir /s /q "$(OutDir)"\include\theora
+)
+if exist $(OutDir)\licenses\theora.txt (
+del /f /q $(OutDir)\licenses\theora.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_BIND_TO_CURRENT_CRT_VERSION;LIBTHEORA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4018;4244;4267;4700;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libtheora.def</ModuleDefinitionFile>
+      <AdditionalDependencies>ogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\theora
+copy ..\include\theora\*.h "$(OutDir)"\include\theora
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\theora.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\ogg\ogg.h (
+mkdir "$(OutDir)"\include\ogg
+copy /y "$(ProjectDir)"\..\..\prebuilt\include\ogg\*.h "$(OutDir)"\include\ogg\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\theora (
+rd /s /q "$(OutDir)"\include\theora
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\theora (
+rmdir /s /q "$(OutDir)"\include\theora
+)
+if exist $(OutDir)\licenses\theora.txt (
+del /f /q $(OutDir)\licenses\theora.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLStaticDeps|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_BIND_TO_CURRENT_CRT_VERSION;LIBTHEORA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4018;4244;4267;4700;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libtheora.def</ModuleDefinitionFile>
+      <AdditionalDependencies>libogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\theora
+copy ..\include\theora\*.h "$(OutDir)"\include\theora
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\theora.txt
+if exist "$(ProjectDir)"\..\..\prebuilt\include\ogg\ogg.h (
+mkdir "$(OutDir)"\include\ogg
+copy /y "$(ProjectDir)"\..\..\prebuilt\include\ogg\*.h "$(OutDir)"\include\ogg\
+)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\theora (
+rd /s /q "$(OutDir)"\include\theora
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\theora (
+rmdir /s /q "$(OutDir)"\include\theora
+)
+if exist $(OutDir)\licenses\theora.txt (
+del /f /q $(OutDir)\licenses\theora.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+</Project>

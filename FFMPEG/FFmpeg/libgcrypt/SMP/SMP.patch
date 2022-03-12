@@ -1,0 +1,740 @@
+diff --git a/autogen.sh b/autogen.sh
+index 9b361581..8aaa998b 100755
+--- a/autogen.sh
++++ b/autogen.sh
+@@ -505,8 +505,8 @@ info "Running $ACLOCAL ${aclocal_flags} ..."
+ $ACLOCAL ${aclocal_flags}
+ info "Running autoheader..."
+ $AUTOHEADER
+-info "Running automake --gnu ..."
+-$AUTOMAKE --gnu;
++info "Running automake --gnu --add-missing ..."
++$AUTOMAKE --gnu --add-missing;
+ info "Running autoconf${FORCE} ..."
+ $AUTOCONF${FORCE}
+ 
+diff --git a/cipher/cipher-ccm.c b/cipher/cipher-ccm.c
+index dcb268d0..2ee202ac 100644
+--- a/cipher/cipher-ccm.c
++++ b/cipher/cipher-ccm.c
+@@ -38,7 +38,7 @@ static unsigned int
+ do_cbc_mac (gcry_cipher_hd_t c, const unsigned char *inbuf, size_t inlen,
+             int do_padding)
+ {
+-  const unsigned int blocksize = 16;
++#define blocksize 16
+   gcry_cipher_encrypt_t enc_fn = c->spec->encrypt;
+   unsigned char tmp[blocksize];
+   unsigned int burn = 0;
+diff --git a/cipher/cipher-internal.h b/cipher/cipher-internal.h
+index c8a1097a..4b2eccf3 100644
+--- a/cipher/cipher-internal.h
++++ b/cipher/cipher-internal.h
+@@ -66,7 +66,7 @@
+ #undef GCM_USE_INTEL_PCLMUL
+ #if defined(ENABLE_PCLMUL_SUPPORT) && defined(GCM_USE_TABLES)
+ # if ((defined(__i386__) && SIZEOF_UNSIGNED_LONG == 4) || defined(__x86_64__))
+-#  if __GNUC__ >= 4
++#  if (__GNUC__ >= 4) || defined(__INTEL_COMPILER)
+ #   define GCM_USE_INTEL_PCLMUL 1
+ #  endif
+ # endif
+diff --git a/cipher/cipher-poly1305.c b/cipher/cipher-poly1305.c
+index bb475236..f01b858f 100644
+--- a/cipher/cipher-poly1305.c
++++ b/cipher/cipher-poly1305.c
+@@ -71,7 +71,7 @@ poly1305_fill_bytecounts (gcry_cipher_hd_t c)
+ static void
+ poly1305_do_padding (gcry_cipher_hd_t c, u32 ctr[2])
+ {
+-  static const byte zero_padding_buf[15] = {};
++  static const byte zero_padding_buf[15] = {0};
+   u32 padding_count;
+ 
+   /* Padding to 16 byte boundary. */
+diff --git a/cipher/des.c b/cipher/des.c
+index 51116fcf..d3e3b739 100644
+--- a/cipher/des.c
++++ b/cipher/des.c
+@@ -140,7 +140,7 @@
+ # define ATTR_ALIGNED_16
+ #endif
+ 
+-#if defined(__GNUC__) && defined(__GNU_LIBRARY__)
++#if (defined(__GNUC__) && defined(__GNU_LIBRARY__)) || defined(_MSC_VER)
+ # define working_memcmp memcmp
+ #else
+ /*
+diff --git a/cipher/stribog.c b/cipher/stribog.c
+index 21e385ae..f894bcf6 100644
+--- a/cipher/stribog.c
++++ b/cipher/stribog.c
+@@ -1286,7 +1286,7 @@ static void
+ stribog_final (void *context)
+ {
+   STRIBOG_CONTEXT *hd = context;
+-  u64 Z[8] = {};
++  u64 Z[8] = {0};
+   int i;
+ 
+   /* PAD. It does not count towards message length */
+diff --git a/mpi/ec-nist.c b/mpi/ec-nist.c
+index 69b05a6d..3247ee34 100644
+--- a/mpi/ec-nist.c
++++ b/mpi/ec-nist.c
+@@ -95,8 +95,13 @@ _gcry_mpi_ec_nist192_mod (gcry_mpi_t w, mpi_ec_t ctx)
+   const mpi_limb64_t zero = LIMB_TO64(0);
+   mpi_ptr_t wp;
+   mpi_size_t wsize = 192 / BITS_PER_MPI_LIMB64;
++#if defined(_MSC_VER)
++  mpi_limb64_t* s = (mpi_limb64_t*)_alloca((wsize + 1) * sizeof(mpi_limb64_t));
++  mpi_limb64_t* o = (mpi_limb64_t*)_alloca((wsize + 1) * sizeof(mpi_limb64_t));
++#else
+   mpi_limb64_t s[wsize + 1];
+   mpi_limb64_t o[wsize + 1];
++#endif
+   mpi_limb_t mask1;
+   mpi_limb_t mask2;
+   mpi_limb_t s_is_negative;
+@@ -188,8 +193,13 @@ _gcry_mpi_ec_nist224_mod (gcry_mpi_t w, mpi_ec_t ctx)
+   mpi_ptr_t wp;
+   mpi_size_t wsize = (224 + BITS_PER_MPI_LIMB64 - 1) / BITS_PER_MPI_LIMB64;
+   mpi_size_t psize = ctx->p->nlimbs;
++#if defined(_MSC_VER)
++  mpi_limb64_t* s = (mpi_limb64_t*)_alloca((wsize) * sizeof(mpi_limb64_t));
++  mpi_limb64_t* d = (mpi_limb64_t*)_alloca((wsize) * sizeof(mpi_limb64_t));
++#else
+   mpi_limb64_t s[wsize];
+   mpi_limb64_t d[wsize];
++#endif
+   mpi_limb_t mask1;
+   mpi_limb_t mask2;
+   mpi_limb_t s_is_negative;
+@@ -347,10 +357,17 @@ _gcry_mpi_ec_nist256_mod (gcry_mpi_t w, mpi_ec_t ctx)
+   mpi_ptr_t wp;
+   mpi_size_t wsize = (256 + BITS_PER_MPI_LIMB64 - 1) / BITS_PER_MPI_LIMB64;
+   mpi_size_t psize = ctx->p->nlimbs;
++#if defined(_MSC_VER)
++  mpi_limb64_t* s = (mpi_limb64_t*)_alloca((wsize + 1) * sizeof(mpi_limb64_t));
++  mpi_limb64_t* t = (mpi_limb64_t*)_alloca((wsize + 1) * sizeof(mpi_limb64_t));
++  mpi_limb64_t* d = (mpi_limb64_t*)_alloca((wsize + 1) * sizeof(mpi_limb64_t));
++  mpi_limb64_t* e = (mpi_limb64_t*)_alloca((wsize + 1) * sizeof(mpi_limb64_t));
++#else
+   mpi_limb64_t s[wsize + 1];
+   mpi_limb64_t t[wsize + 1];
+   mpi_limb64_t d[wsize + 1];
+   mpi_limb64_t e[wsize + 1];
++#endif
+   mpi_limb_t mask1;
+   mpi_limb_t mask2;
+   mpi_limb_t mask3;
+@@ -600,10 +617,17 @@ _gcry_mpi_ec_nist384_mod (gcry_mpi_t w, mpi_ec_t ctx)
+ #if (BITS_PER_MPI_LIMB64 == BITS_PER_MPI_LIMB) && defined(WORDS_BIGENDIAN)
+   mpi_limb_t wp_shr32[wsize * LIMBS_PER_LIMB64];
+ #endif
++#if defined(_MSC_VER)
++  mpi_limb64_t* s = (mpi_limb64_t*)_alloca((wsize + 1) * sizeof(mpi_limb64_t));
++  mpi_limb64_t* t = (mpi_limb64_t*)_alloca((wsize + 1) * sizeof(mpi_limb64_t));
++  mpi_limb64_t* d = (mpi_limb64_t*)_alloca((wsize + 1) * sizeof(mpi_limb64_t));
++  mpi_limb64_t* x = (mpi_limb64_t*)_alloca((wsize + 1) * sizeof(mpi_limb64_t));
++#else
+   mpi_limb64_t s[wsize + 1];
+   mpi_limb64_t t[wsize + 1];
+   mpi_limb64_t d[wsize + 1];
+   mpi_limb64_t x[wsize + 1];
++#endif
+   mpi_limb_t mask1;
+   mpi_limb_t mask2;
+   mpi_limb_t s_is_negative;
+@@ -792,7 +816,11 @@ void
+ _gcry_mpi_ec_nist521_mod (gcry_mpi_t w, mpi_ec_t ctx)
+ {
+   mpi_size_t wsize = (521 + BITS_PER_MPI_LIMB - 1) / BITS_PER_MPI_LIMB;
++#if defined(_MSC_VER)
++  mpi_limb_t* s = (mpi_limb_t*)_alloca((wsize) * sizeof(mpi_limb_t));
++#else
+   mpi_limb_t s[wsize];
++#endif
+   mpi_limb_t cy;
+   mpi_ptr_t wp;
+ 
+diff --git a/mpi/ec.c b/mpi/ec.c
+index c24921ee..b59726d6 100644
+--- a/mpi/ec.c
++++ b/mpi/ec.c
+@@ -30,6 +30,12 @@
+ #include "ec-context.h"
+ #include "ec-internal.h"
+ 
++#ifdef HAVE_W32_SYSTEM
++# if defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_PC_APP || WINAPI_FAMILY==WINAPI_FAMILY_PHONE_APP)
++#  define getenv(x) NULL
++# endif
++#endif
++
+ extern void reverse_buffer (unsigned char *buffer, unsigned int length);
+ 
+ #define point_init(a)  _gcry_mpi_point_init ((a))
+@@ -582,8 +588,13 @@ static void
+ ec_secp256k1_mod (gcry_mpi_t w, mpi_ec_t ctx)
+ {
+   mpi_size_t wsize = (256 + BITS_PER_MPI_LIMB - 1) / BITS_PER_MPI_LIMB;
++#if defined(_MSC_VER)
++  mpi_limb_t* n = (mpi_limb_t*)_alloca((wsize + 1) * sizeof(mpi_limb_t));
++  mpi_limb_t* s = (mpi_limb_t*)_alloca((wsize + 1) * sizeof(mpi_limb_t));
++#else
+   mpi_limb_t n[wsize + 1];
+   mpi_limb_t s[wsize + 1];
++#endif
+   mpi_limb_t cy, borrow;
+   mpi_ptr_t wp;
+ 
+diff --git a/mpi/longlong.h b/mpi/longlong.h
+index 39cdd0c2..02cb2c3c 100644
+--- a/mpi/longlong.h
++++ b/mpi/longlong.h
+@@ -98,7 +98,7 @@ MA 02111-1307, USA. */
+ #ifdef __riscos__
+ #pragma continue_after_hash_error
+ #else /* !__riscos__ */
+-#if defined (__GNUC__) && !defined (NO_ASM)
++#if ( defined (__GNUC__) || defined(__INTEL_COMPILER) ) && !defined (NO_ASM)
+ 
+ /* We sometimes need to clobber "cc" with gcc2, but that would not be
+    understood by gcc1.	Use cpp to avoid major code duplication.  */
+diff --git a/random/rand-internal.h b/random/rand-internal.h
+index 2d2b8909..eef6dc27 100644
+--- a/random/rand-internal.h
++++ b/random/rand-internal.h
+@@ -129,6 +129,15 @@ int _gcry_rndw32ce_gather_random (void (*add) (const void *, size_t,
+ void _gcry_rndw32ce_gather_random_fast (void (*add)(const void*, size_t,
+                                                     enum random_origins),
+                                         enum random_origins origin );
++/*-- rndw32uwp.cpp --*/
++int _gcry_rnduwp_gather_random (void (*add) (const void *, size_t,
++                                             enum random_origins),
++                                enum random_origins origin,
++                                size_t length, int level );
++
++void _gcry_rnduwp_gather_random_fast (void (*add) (const void *, size_t,
++                                                   enum random_origins),
++                                      enum random_origins origin );
+ 
+ /*-- rndjent.c --*/
+ size_t _gcry_rndjent_poll (void (*add)(const void*,
+diff --git a/random/random-csprng.c b/random/random-csprng.c
+index 85d11789..6da11933 100644
+--- a/random/random-csprng.c
++++ b/random/random-csprng.c
+@@ -40,7 +40,9 @@
+ #include <sys/time.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+-#include <unistd.h>
++#ifdef HAVE_UNISTD_H
++# include <unistd.h>
++#endif
+ #include <fcntl.h>
+ #include <time.h>
+ #ifdef	HAVE_GETHRTIME
+@@ -52,8 +54,21 @@
+ #ifdef HAVE_GETRUSAGE
+ #include <sys/resource.h>
+ #endif
+-#ifdef __MINGW32__
++#ifdef HAVE_W32_SYSTEM
+ #include <process.h>
++#include <io.h>
++# ifndef S_IRUSR
++#  define S_IRUSR _S_IREAD
++# endif
++# ifndef S_IS_IWUSRRUSR
++#  define S_IWUSR _S_IWRITE
++# endif
++# ifndef S_ISREG
++#  define S_ISREG(m) (((m)& S_IFMT) == S_IFREG)
++# endif
++# if defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_PC_APP || WINAPI_FAMILY==WINAPI_FAMILY_PHONE_APP)
++#  define getpid() GetCurrentProcessId()
++# endif
+ #endif
+ #ifdef HAVE_W32_SYSTEM
+ #include <windows.h>
+@@ -1175,7 +1190,11 @@ getfnc_gather_random (void))(void (*)(const void*, size_t,
+ #endif
+ 
+ #if USE_RNDW32
++# if defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_PC_APP || WINAPI_FAMILY==WINAPI_FAMILY_PHONE_APP)
++  fnc = _gcry_rnduwp_gather_random;
++# else
+   fnc = _gcry_rndw32_gather_random;
++# endif
+   return fnc;
+ #endif
+ 
+@@ -1197,7 +1216,11 @@ getfnc_fast_random_poll (void))( void (*)(const void*, size_t,
+                                  enum random_origins)
+ {
+ #if USE_RNDW32
++# if defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_PC_APP || WINAPI_FAMILY==WINAPI_FAMILY_PHONE_APP)
++  return _gcry_rnduwp_gather_random_fast;
++# else
+   return _gcry_rndw32_gather_random_fast;
++# endif
+ #endif
+ #if USE_RNDW32CE
+   return _gcry_rndw32ce_gather_random_fast;
+diff --git a/random/random-drbg.c b/random/random-drbg.c
+index a42b9ce8..29390047 100644
+--- a/random/random-drbg.c
++++ b/random/random-drbg.c
+@@ -149,7 +149,9 @@
+ #include <config.h>
+ 
+ #include <string.h>
++#ifdef HAVE_UNISTD_H
+ #include <unistd.h>
++#endif
+ #include <stdint.h>
+ 
+ #include "g10lib.h"
+@@ -157,6 +159,13 @@
+ #include "rand-internal.h"
+ #include "../cipher/bufhelp.h"
+ 
++#ifdef HAVE_W32_SYSTEM
++# include <process.h>
++# if defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_PC_APP || WINAPI_FAMILY==WINAPI_FAMILY_PHONE_APP)
++#  define getpid() GetCurrentProcessId()
++# endif
++#endif
++
+ 
+ 
+ /******************************************************************
+@@ -628,12 +637,16 @@ drbg_get_entropy (drbg_state_t drbg, unsigned char *buffer,
+   rc = _gcry_rndunix_gather_random (drbg_read_cb, 0, len,
+ 				    GCRY_VERY_STRONG_RANDOM);
+ #elif USE_RNDW32
++# if defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_PC_APP || WINAPI_FAMILY==WINAPI_FAMILY_PHONE_APP)
++  rc = _gcry_rnduwp_gather_random(drbg_read_cb, 0, len, GCRY_VERY_STRONG_RANDOM);
++# else
+   do
+     {
+       rc = _gcry_rndw32_gather_random (drbg_read_cb, 0, len,
+ 				       GCRY_VERY_STRONG_RANDOM);
+     }
+   while (rc >= 0 && read_cb_len < read_cb_size);
++# endif
+ #else
+   rc = -1;
+ #endif
+diff --git a/random/random-system.c b/random/random-system.c
+index a1d17ad0..330a89a6 100644
+--- a/random/random-system.c
++++ b/random/random-system.c
+@@ -27,7 +27,9 @@
+ #include <stdlib.h>
+ #include <errno.h>
+ #include <sys/types.h>
++#ifdef HAVE_UNISTD_H
+ #include <unistd.h>
++#endif
+ #ifdef HAVE_GETTIMEOFDAY
+ #include <sys/time.h>
+ #endif
+@@ -154,11 +156,15 @@ get_random (void *buffer, size_t length, int level)
+ #elif USE_RNDUNIX
+   rc = _gcry_rndunix_gather_random (read_cb, 0, length, level);
+ #elif USE_RNDW32
++# if defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_PC_APP || WINAPI_FAMILY==WINAPI_FAMILY_PHONE_APP)
++  rc = _gcry_rnduwp_gather_random(read_cb, 0, length, level);
++# else
+   do
+     {
+       rc = _gcry_rndw32_gather_random (read_cb, 0, length, level);
+     }
+   while (rc >= 0 && read_cb_len < read_cb_size);
++# endif
+ #else
+   rc = -1;
+ #endif
+diff --git a/random/random.c b/random/random.c
+index c0435d7b..d83483b1 100644
+--- a/random/random.c
++++ b/random/random.c
+@@ -28,7 +28,9 @@
+ #include <errno.h>
+ #include <time.h>
+ #include <sys/types.h>
++#ifdef HAVE_UNISTD_H
+ #include <unistd.h>
++#endif
+ #ifdef HAVE_SYSLOG
+ # include <syslog.h>
+ #endif /*HAVE_SYSLOG*/
+@@ -42,6 +44,12 @@
+ /* The name of a file used to globally configure the RNG. */
+ #define RANDOM_CONF_FILE "/etc/gcrypt/random.conf"
+ 
++#ifdef HAVE_W32_SYSTEM
++# include <process.h>
++# if defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_PC_APP || WINAPI_FAMILY==WINAPI_FAMILY_PHONE_APP)
++#  define getpid() GetCurrentProcessId()
++# endif
++#endif
+ 
+ /* If not NULL a progress function called from certain places and the
+    opaque value passed along.  Registered by
+diff --git a/random/rndgetentropy.c b/random/rndgetentropy.c
+index 7580873e..a4cf456a 100644
+--- a/random/rndgetentropy.c
++++ b/random/rndgetentropy.c
+@@ -25,7 +25,9 @@
+ #include <errno.h>
+ #include <sys/types.h>
+ #include <string.h>
++#ifdef HAVE_UNISTD_H
+ #include <unistd.h>
++#endif
+ #ifdef HAVE_SYS_RANDOM_H
+ #include <sys/random.h>
+ #endif
+diff --git a/random/rndjent.c b/random/rndjent.c
+index 14d23794..e8850eec 100644
+--- a/random/rndjent.c
++++ b/random/rndjent.c
+@@ -43,7 +43,9 @@
+ #ifdef HAVE_STDINT_H
+ # include <stdint.h>
+ #endif
++#ifdef HAVE_UNISTD_H
+ #include <unistd.h>
++#endif
+ #include <errno.h>
+ 
+ #include "types.h"
+diff --git a/random/rndw32.c b/random/rndw32.c
+index b3f63d20..9407306b 100644
+--- a/random/rndw32.c
++++ b/random/rndw32.c
+@@ -141,8 +141,8 @@ typedef DWORD (WINAPI *NTPOWERINFORMATION)
+ 
+ /* Type definitions for function pointers to call CryptoAPI functions. */
+ typedef BOOL (WINAPI *CRYPTACQUIRECONTEXT)(HCRYPTPROV *phProv,
+-                                           LPCTSTR pszContainer,
+-                                           LPCTSTR pszProvider,
++                                           LPCSTR pszContainer,
++                                           LPCSTR pszProvider,
+                                            DWORD dwProvType,
+                                            DWORD dwFlags);
+ typedef BOOL (WINAPI *CRYPTGENRANDOM)(HCRYPTPROV hProv, DWORD dwLen,
+@@ -260,7 +260,7 @@ init_system_rng (void)
+   system_rng_available = 0;
+   hRNGProv = NULL;
+ 
+-  hAdvAPI32 = GetModuleHandle ("AdvAPI32.dll");
++  hAdvAPI32 = GetModuleHandleW (L"AdvAPI32.dll");
+   if (!hAdvAPI32)
+     return;
+ 
+@@ -338,7 +338,7 @@ read_mbm_data (void (*add)(const void*, size_t, enum random_origins),
+   HANDLE hMBMData;
+   SharedData *mbmDataPtr;
+ 
+-  hMBMData = OpenFileMapping (FILE_MAP_READ, FALSE, "$M$B$M$5$S$D$" );
++  hMBMData = OpenFileMappingW (FILE_MAP_READ, FALSE, L"$M$B$M$5$S$D$" );
+   if (hMBMData)
+     {
+       mbmDataPtr = (SharedData*)MapViewOfFile (hMBMData, FILE_MAP_READ,0,0,0);
+@@ -439,7 +439,7 @@ registry_poll (void (*add)(const void*, size_t, enum random_origins),
+           if ( debug_me )
+             log_debug ("rndw32#slow_gatherer_nt: get perf data\n" );
+ 
+-          status = RegQueryValueEx (HKEY_PERFORMANCE_DATA, "Global", NULL,
++          status = RegQueryValueExW (HKEY_PERFORMANCE_DATA, L"Global", NULL,
+                                     NULL, (LPBYTE) pPerfData, &dwSize);
+           if (status == ERROR_SUCCESS)
+             {
+@@ -502,8 +502,8 @@ slow_gatherer ( void (*add)(const void*, size_t, enum random_origins),
+       if ( debug_me )
+         log_debug ("rndw32#slow_gatherer: init toolkit\n" );
+       /* Find out whether this is an NT server or workstation if necessary */
+-      if (RegOpenKeyEx (HKEY_LOCAL_MACHINE,
+-                        "SYSTEM\\CurrentControlSet\\Control\\ProductOptions",
++      if (RegOpenKeyExW (HKEY_LOCAL_MACHINE,
++                        L"SYSTEM\\CurrentControlSet\\Control\\ProductOptions",
+                         0, KEY_READ, &hKey) == ERROR_SUCCESS)
+         {
+           BYTE szValue[32 + 8];
+@@ -512,7 +512,7 @@ slow_gatherer ( void (*add)(const void*, size_t, enum random_origins),
+           if ( debug_me )
+             log_debug ("rndw32#slow_gatherer: check product options\n" );
+ 
+-          status = RegQueryValueEx (hKey, "ProductType", 0, NULL,
++          status = RegQueryValueExW (hKey, L"ProductType", 0, NULL,
+                                     szValue, &dwSize);
+           if (status == ERROR_SUCCESS && stricmp ((char*)szValue, "WinNT"))
+             {
+@@ -531,7 +531,7 @@ slow_gatherer ( void (*add)(const void*, size_t, enum random_origins),
+       /* readPnPData ();  - we have not implemented that.  */
+ 
+       /* Initialize the NetAPI32 function pointers if necessary */
+-      hNetAPI32 = LoadLibrary ("NETAPI32.DLL");
++      hNetAPI32 = LoadLibraryW (L"NETAPI32.DLL");
+       if (hNetAPI32)
+         {
+           if (debug_me)
+@@ -552,7 +552,7 @@ slow_gatherer ( void (*add)(const void*, size_t, enum random_origins),
+         }
+ 
+       /* Initialize the NT kernel native API function pointers if necessary */
+-      hNTAPI = GetModuleHandle ("NTDll.dll");
++      hNTAPI = GetModuleHandleW (L"NTDll.dll");
+       if (hNTAPI)
+         {
+           /* Get a pointer to the NT native information query functions */
+@@ -600,12 +600,12 @@ slow_gatherer ( void (*add)(const void*, size_t, enum random_origins),
+   for (drive_no = 0; drive_no < 100 ; drive_no++)
+     {
+       char diskPerformance[SIZEOF_DISK_PERFORMANCE_STRUCT + 8];
+-      char szDevice[50];
++      wchar_t szDevice[50];
+ 
+       /* Check whether we can access this device.  */
+-      snprintf (szDevice, sizeof szDevice, "\\\\.\\PhysicalDrive%d",
+-                drive_no);
+-      hDevice = CreateFile (szDevice, 0, FILE_SHARE_READ | FILE_SHARE_WRITE,
++      _snwprintf (szDevice, sizeof(szDevice) / sizeof(wchar_t), L"\\\\.\\PhysicalDrive%d",
++                  drive_no);
++      hDevice = CreateFileW (szDevice, 0, FILE_SHARE_READ | FILE_SHARE_WRITE,
+                             NULL, OPEN_EXISTING, 0, NULL);
+       if (hDevice == INVALID_HANDLE_VALUE)
+         break; /* No more drives.  */
+diff --git a/random/rndw32uwp.cpp b/random/rndw32uwp.cpp
+new file mode 100644
+index 00000000..b7bd6b8d
+--- /dev/null
++++ b/random/rndw32uwp.cpp
+@@ -0,0 +1,56 @@
++/* rndw32uwp - W32 entropy gatherer (UWP)
++ *
++ * This file is part of Libgcrypt.
++ *
++ * Libgcrypt is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU Lesser General Public License as
++ * published by the Free Software Foundation; either version 2.1 of
++ * the License, or (at your option) any later version.
++ *
++ * Libgcrypt is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU Lesser General Public License for more details.
++ *
++ * You should have received a copy of the GNU Lesser General Public
++ * License along with this program; if not, see <http://www.gnu.org/licenses/>.
++ */
++
++#include "config.h"
++#include "types.h"
++#include "g10lib.h"
++
++using namespace Platform;
++using namespace Windows::Security::Cryptography;
++using namespace Windows::Security::Cryptography::Certificates;
++using namespace Windows::Storage::Streams;
++
++extern "C" {
++int
++_gcry_rnduwp_gather_random(void(*add)(const void*, size_t,
++                                      enum random_origins),
++                           enum random_origins origin,
++                           size_t length, int level)
++{
++	if (!level)
++		return 0;
++
++	IBuffer^ data = CryptographicBuffer::GenerateRandom(length);
++	Array<unsigned char>^ data2;
++	CryptographicBuffer::CopyToByteArray(data, &data2);
++	(*add)(data2->Data, length, origin);
++
++	return 0;
++}
++
++void
++_gcry_rnduwp_gather_random_fast(void(*add)(const void*, size_t,
++                                           enum random_origins),
++                                enum random_origins origin)
++{
++	size_t size = 20 * sizeof(intptr_t) + 2 * sizeof(POINT) + sizeof(MEMORYSTATUS)
++				+ 8 * sizeof(FILETIME) + sizeof(LARGE_INTEGER);
++
++	_gcry_rnduwp_gather_random(add, origin, size, 1);
++}
++}
+\ No newline at end of file
+diff --git a/src/context.c b/src/context.c
+index da9948a6..257578d0 100644
+--- a/src/context.c
++++ b/src/context.c
+@@ -22,7 +22,9 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <stdarg.h>
+-#include <unistd.h>
++#ifdef HAVE_UNISTD_H
++# include <unistd.h>
++#endif
+ 
+ #include "g10lib.h"
+ #include "mpi.h"
+diff --git a/src/fips.c b/src/fips.c
+index 391b94f1..2647a594 100644
+--- a/src/fips.c
++++ b/src/fips.c
+@@ -21,7 +21,9 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <errno.h>
+-#include <unistd.h>
++#ifdef HAVE_UNISTD_H
++# include <unistd.h>
++#endif
+ #include <string.h>
+ #ifdef ENABLE_HMAC_BINARY_CHECK
+ # include <dlfcn.h>
+@@ -30,6 +32,12 @@
+ #ifdef HAVE_SYSLOG
+ # include <syslog.h>
+ #endif /*HAVE_SYSLOG*/
++#ifdef HAVE_W32_SYSTEM
++# include <io.h>
++# ifndef F_OK
++#  define F_OK 0
++# endif
++#endif
+ 
+ /* The name of the file used to force libgcrypt into fips mode. */
+ #define FIPS_FORCE_FILE "/etc/gcrypt/fips_enabled"
+diff --git a/src/gcrypt.h.in b/src/gcrypt.h.in
+index b1364123..cb454607 100644
+--- a/src/gcrypt.h.in
++++ b/src/gcrypt.h.in
+@@ -34,7 +34,7 @@
+ 
+ #if defined _WIN32 || defined __WIN32__
+ # ifndef __GNUC__
+-  typedef long ssize_t;
++  typedef SSIZE_T ssize_t;
+   typedef int  pid_t;
+ # endif /*!__GNUC__*/
+ #endif /*_WIN32*/
+diff --git a/src/global.c b/src/global.c
+index 7cf40e4a..254283d9 100644
+--- a/src/global.c
++++ b/src/global.c
+@@ -29,7 +29,9 @@
+ #include <ctype.h>
+ #include <limits.h>
+ #include <errno.h>
+-#include <unistd.h>
++#ifdef HAVE_UNISTD_H
++# include <unistd.h>
++#endif
+ #ifdef HAVE_SYSLOG
+ # include <syslog.h>
+ #endif /*HAVE_SYSLOG*/
+diff --git a/src/hwf-x86.c b/src/hwf-x86.c
+index a1aa02e7..54a6b611 100644
+--- a/src/hwf-x86.c
++++ b/src/hwf-x86.c
+@@ -23,7 +23,9 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <stdarg.h>
+-#include <unistd.h>
++#ifdef HAVE_UNISTD_H
++# include <unistd.h>
++#endif
+ 
+ #include "g10lib.h"
+ #include "hwf-common.h"
+@@ -36,7 +38,7 @@
+    features.  */
+ #undef HAS_X86_CPUID
+ 
+-#if defined (__i386__) && SIZEOF_UNSIGNED_LONG == 4 && defined (__GNUC__)
++#if defined (__i386__) && SIZEOF_UNSIGNED_LONG == 4 && ( defined (__GNUC__) || defined(__INTEL_COMPILER) )
+ # define HAS_X86_CPUID 1
+ 
+ #if _GCRY_GCC_VERSION >= 40700 /* 4.7 */
+@@ -65,9 +67,9 @@ is_cpuid_available(void)
+      "pushl %%ecx\n\t"           /* Restore flags from ECX.  */
+      "popf\n\t"
+      "xorl %%eax, %%ecx\n\t"     /* Compare flags against saved flags.  */
+-     "jz .Lno_cpuid%=\n\t"       /* Toggling did not work, thus no CPUID.  */
++     "jz 1f\n\t"       /* Toggling did not work, thus no CPUID.  */
+      "movl $1, %0\n"             /* Worked. true -> HAS_CPUID.  */
+-     ".Lno_cpuid%=:\n\t"
++     "1:\n\t"
+      : "+r" (has_cpuid)
+      :
+      : "%eax", "%ecx", "cc", "memory"
+@@ -120,7 +122,7 @@ get_xgetbv(void)
+ #endif /* i386 && GNUC */
+ 
+ 
+-#if defined (__x86_64__) && defined (__GNUC__)
++#if defined (__x86_64__) && ( defined (__GNUC__) || defined(__INTEL_COMPILER) )
+ # define HAS_X86_CPUID 1
+ 
+ static int
+diff --git a/src/hwfeatures.c b/src/hwfeatures.c
+index 97e67b3c..dbc581ee 100644
+--- a/src/hwfeatures.c
++++ b/src/hwfeatures.c
+@@ -24,7 +24,9 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <stdarg.h>
+-#include <unistd.h>
++#ifdef HAVE_UNISTD_H
++# include <unistd.h>
++#endif
+ #ifdef HAVE_SYSLOG
+ # include <syslog.h>
+ #endif /*HAVE_SYSLOG*/
+diff --git a/src/misc.c b/src/misc.c
+index 4db2d9a4..a8eb41b7 100644
+--- a/src/misc.c
++++ b/src/misc.c
+@@ -24,7 +24,12 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <stdarg.h>
+-#include <unistd.h>
++#ifdef HAVE_UNISTD_H
++# include <unistd.h>
++#endif
++#ifdef HAVE_W32_SYSTEM
++# include <io.h>
++#endif
+ 
+ #include "g10lib.h"
+ #include "secmem.h"
+diff --git a/src/secmem.c b/src/secmem.c
+index b36c44f6..fa6bfab4 100644
+--- a/src/secmem.c
++++ b/src/secmem.c
+@@ -25,7 +25,9 @@
+ #include <string.h>
+ #include <errno.h>
+ #include <stdarg.h>
+-#include <unistd.h>
++#ifdef HAVE_UNISTD_H
++# include <unistd.h>
++#endif
+ #include <stddef.h>
+ 
+ #if defined(HAVE_MLOCK) || defined(HAVE_MMAP)

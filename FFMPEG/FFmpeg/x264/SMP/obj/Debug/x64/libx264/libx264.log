@@ -1,0 +1,15 @@
+﻿  ..\common\x86\cpu-a.asm
+  ..\common\x86\bitstream-a.asm
+  ..\common\x86\cabac-a.asm
+  ..\common\x86\const-a.asm
+  ..\common\x86\dct-64.asm
+  ..\common\x86\dct-a.asm
+  ..\common\x86\deblock-a.asm
+  ..\common\x86\mc-a.asm
+  ..\common\x86\mc-a2.asm
+  ..\common\x86\pixel-a.asm
+  ..\common\x86\predict-a.asm
+  ..\common\x86\quant-a.asm
+  ..\common\x86\sad-a.asm
+  ..\common\x86\trellis-64.asm
+  Custom Clean Step

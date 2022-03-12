@@ -1,0 +1,26 @@
+﻿  x86_64\aes-decrypt-internal-2-fat.s
+  x86_64\aes-decrypt-internal-fat.s
+  x86_64\aes-encrypt-internal-2-fat.s
+  x86_64\aes-encrypt-internal-fat.s
+  x86_64\camellia-crypt-internal.s
+  x86_64\chacha-core-internal.s
+  x86_64\cpuid-fat.s
+  x86_64\gcm-hash8.s
+  x86_64\md5-compress.s
+  x86_64\memxor-2-fat.s
+  x86_64\memxor-fat.s
+  x86_64\memxor3.s
+  x86_64\poly1305-internal.s
+  x86_64\salsa20-core-internal.s
+  x86_64\salsa20-2core.s
+  x86_64\serpent-decrypt.s
+  x86_64\serpent-encrypt.s
+  x86_64\sha1-compress-2-fat.s
+  x86_64\sha1-compress-fat.s
+  x86_64\sha256-compress-2-fat.s
+  x86_64\sha256-compress-fat.s
+  x86_64\sha3-permute.s
+  x86_64\sha512-compress.s
+  x86_64\umac-nh-n.s
+  x86_64\umac-nh.s
+  Custom Clean Step

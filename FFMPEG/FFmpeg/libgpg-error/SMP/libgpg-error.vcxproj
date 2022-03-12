@@ -1,0 +1,664 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A04A762D-A8D7-4F68-9B79-FBE63C6BE105}</ProjectGuid>
+    <RootNamespace>gpg-error</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="smp.props" />
+    <Import Project="libgpg-error_files.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;PKGDATADIR="";MKDIR_TAKES_ONE_ARG;_WINSOCK_DEPRECATED_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;.\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4018;4267;4312;4311;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\src\gpg-error.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgpg-error.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\err-sources.h (
+del ..\src\err-sources.h
+)
+if exist ..\src\err-sources-sym.h (
+del ..\src\err-sources-sym.h
+)
+if exist ..\src\err-codes.h (
+del ..\src\err-codes.h
+)
+if exist ..\src\err-codes-sym.h (
+del ..\src\err-codes-sym.h
+)
+if exist ..\src\code-to-errno.h (
+del ..\src\code-to-errno.h
+)
+if exist ..\src\code-from-errno.h (
+del ..\src\code-from-errno.h
+)
+if exist ..\src\errnos-sym.h (
+del ..\src\errnos-sym.h
+)
+if exist ..\src\lock-obj-pub.native.h (
+del ..\src\lock-obj-pub.native.h
+)
+if exist ..\src\gpg-error.h (
+del ..\src\gpg-error.h
+)
+if exist "$(OutDir)"\include\gpg-error.h (
+del "$(OutDir)"\include\gpg-error.h
+)
+if not exist .\src\err-sources.h (
+awk -f ..\src\mkstrtable.awk -v textidx=3 ..\src\err-sources.h.in &gt; .\src\err-sources.h
+)
+if not exist .\src\err-sources-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 ..\src\err-sources.h.in &gt; .\src\err-sources-sym.h
+)
+if not exist .\src\err-codes.h (
+awk -f ..\src\mkstrtable.awk -v textidx=3 ..\src\err-codes.h.in &gt; .\src\err-codes.h
+)
+if not exist .\src\err-codes-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 ..\src\err-codes.h.in &gt; .\src\err-codes-sym.h
+)
+if not exist .\src\code-to-errno.h (
+awk -f ..\src\mkerrnos.awk ..\src\errnos.in &gt; .\src\code-to-errno.h
+)
+if not exist .\src\errnos-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 -v prefix=GPG_ERR_ -v namespace=errnos_ ..\src\errnos.in &gt; .\src\errnos-sym.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gpg-error.h (
+del /f /q "$(OutDir)"\include\gpg-error.h
+)
+if exist $(OutDir)\licenses\libgpg-error.txt (
+del /f /q $(OutDir)\licenses\libgpg-error.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;PKGDATADIR="";MKDIR_TAKES_ONE_ARG;_WINSOCK_DEPRECATED_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;.\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4018;4267;4312;4311;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\src\gpg-error.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgpg-error.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\err-sources.h (
+del ..\src\err-sources.h
+)
+if exist ..\src\err-sources-sym.h (
+del ..\src\err-sources-sym.h
+)
+if exist ..\src\err-codes.h (
+del ..\src\err-codes.h
+)
+if exist ..\src\err-codes-sym.h (
+del ..\src\err-codes-sym.h
+)
+if exist ..\src\code-to-errno.h (
+del ..\src\code-to-errno.h
+)
+if exist ..\src\code-from-errno.h (
+del ..\src\code-from-errno.h
+)
+if exist ..\src\errnos-sym.h (
+del ..\src\errnos-sym.h
+)
+if exist ..\src\lock-obj-pub.native.h (
+del ..\src\lock-obj-pub.native.h
+)
+if exist ..\src\gpg-error.h (
+del ..\src\gpg-error.h
+)
+if exist "$(OutDir)"\include\gpg-error.h (
+del "$(OutDir)"\include\gpg-error.h
+)
+if not exist .\src\err-sources.h (
+awk -f ..\src\mkstrtable.awk -v textidx=3 ..\src\err-sources.h.in &gt; .\src\err-sources.h
+)
+if not exist .\src\err-sources-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 ..\src\err-sources.h.in &gt; .\src\err-sources-sym.h
+)
+if not exist .\src\err-codes.h (
+awk -f ..\src\mkstrtable.awk -v textidx=3 ..\src\err-codes.h.in &gt; .\src\err-codes.h
+)
+if not exist .\src\err-codes-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 ..\src\err-codes.h.in &gt; .\src\err-codes-sym.h
+)
+if not exist .\src\code-to-errno.h (
+awk -f ..\src\mkerrnos.awk ..\src\errnos.in &gt; .\src\code-to-errno.h
+)
+if not exist .\src\errnos-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 -v prefix=GPG_ERR_ -v namespace=errnos_ ..\src\errnos.in &gt; .\src\errnos-sym.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gpg-error.h (
+del /f /q "$(OutDir)"\include\gpg-error.h
+)
+if exist $(OutDir)\licenses\libgpg-error.txt (
+del /f /q $(OutDir)\licenses\libgpg-error.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;PKGDATADIR="";MKDIR_TAKES_ONE_ARG;_WINSOCK_DEPRECATED_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;.\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4018;4267;4312;4311;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libgpg-error.def</ModuleDefinitionFile>
+      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\src\gpg-error.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgpg-error.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\err-sources.h (
+del ..\src\err-sources.h
+)
+if exist ..\src\err-sources-sym.h (
+del ..\src\err-sources-sym.h
+)
+if exist ..\src\err-codes.h (
+del ..\src\err-codes.h
+)
+if exist ..\src\err-codes-sym.h (
+del ..\src\err-codes-sym.h
+)
+if exist ..\src\code-to-errno.h (
+del ..\src\code-to-errno.h
+)
+if exist ..\src\code-from-errno.h (
+del ..\src\code-from-errno.h
+)
+if exist ..\src\errnos-sym.h (
+del ..\src\errnos-sym.h
+)
+if exist ..\src\lock-obj-pub.native.h (
+del ..\src\lock-obj-pub.native.h
+)
+if exist ..\src\gpg-error.h (
+del ..\src\gpg-error.h
+)
+if exist "$(OutDir)"\include\gpg-error.h (
+del "$(OutDir)"\include\gpg-error.h
+)
+if not exist .\src\err-sources.h (
+awk -f ..\src\mkstrtable.awk -v textidx=3 ..\src\err-sources.h.in &gt; .\src\err-sources.h
+)
+if not exist .\src\err-sources-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 ..\src\err-sources.h.in &gt; .\src\err-sources-sym.h
+)
+if not exist .\src\err-codes.h (
+awk -f ..\src\mkstrtable.awk -v textidx=3 ..\src\err-codes.h.in &gt; .\src\err-codes.h
+)
+if not exist .\src\err-codes-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 ..\src\err-codes.h.in &gt; .\src\err-codes-sym.h
+)
+if not exist .\src\code-to-errno.h (
+awk -f ..\src\mkerrnos.awk ..\src\errnos.in &gt; .\src\code-to-errno.h
+)
+if not exist .\src\errnos-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 -v prefix=GPG_ERR_ -v namespace=errnos_ ..\src\errnos.in &gt; .\src\errnos-sym.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gpg-error.h (
+del /f /q "$(OutDir)"\include\gpg-error.h
+)
+if exist $(OutDir)\licenses\libgpg-error.txt (
+del /f /q $(OutDir)\licenses\libgpg-error.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;PKGDATADIR="";MKDIR_TAKES_ONE_ARG;_WINSOCK_DEPRECATED_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;.\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4018;4267;4312;4311;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libgpg-error.def</ModuleDefinitionFile>
+      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\src\gpg-error.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgpg-error.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\err-sources.h (
+del ..\src\err-sources.h
+)
+if exist ..\src\err-sources-sym.h (
+del ..\src\err-sources-sym.h
+)
+if exist ..\src\err-codes.h (
+del ..\src\err-codes.h
+)
+if exist ..\src\err-codes-sym.h (
+del ..\src\err-codes-sym.h
+)
+if exist ..\src\code-to-errno.h (
+del ..\src\code-to-errno.h
+)
+if exist ..\src\code-from-errno.h (
+del ..\src\code-from-errno.h
+)
+if exist ..\src\errnos-sym.h (
+del ..\src\errnos-sym.h
+)
+if exist ..\src\lock-obj-pub.native.h (
+del ..\src\lock-obj-pub.native.h
+)
+if exist ..\src\gpg-error.h (
+del ..\src\gpg-error.h
+)
+if exist "$(OutDir)"\include\gpg-error.h (
+del "$(OutDir)"\include\gpg-error.h
+)
+if not exist .\src\err-sources.h (
+awk -f ..\src\mkstrtable.awk -v textidx=3 ..\src\err-sources.h.in &gt; .\src\err-sources.h
+)
+if not exist .\src\err-sources-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 ..\src\err-sources.h.in &gt; .\src\err-sources-sym.h
+)
+if not exist .\src\err-codes.h (
+awk -f ..\src\mkstrtable.awk -v textidx=3 ..\src\err-codes.h.in &gt; .\src\err-codes.h
+)
+if not exist .\src\err-codes-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 ..\src\err-codes.h.in &gt; .\src\err-codes-sym.h
+)
+if not exist .\src\code-to-errno.h (
+awk -f ..\src\mkerrnos.awk ..\src\errnos.in &gt; .\src\code-to-errno.h
+)
+if not exist .\src\errnos-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 -v prefix=GPG_ERR_ -v namespace=errnos_ ..\src\errnos.in &gt; .\src\errnos-sym.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gpg-error.h (
+del /f /q "$(OutDir)"\include\gpg-error.h
+)
+if exist $(OutDir)\licenses\libgpg-error.txt (
+del /f /q $(OutDir)\licenses\libgpg-error.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;PKGDATADIR="";MKDIR_TAKES_ONE_ARG;_WINSOCK_DEPRECATED_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;.\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4018;4267;4312;4311;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\src\gpg-error.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgpg-error.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\err-sources.h (
+del ..\src\err-sources.h
+)
+if exist ..\src\err-sources-sym.h (
+del ..\src\err-sources-sym.h
+)
+if exist ..\src\err-codes.h (
+del ..\src\err-codes.h
+)
+if exist ..\src\err-codes-sym.h (
+del ..\src\err-codes-sym.h
+)
+if exist ..\src\code-to-errno.h (
+del ..\src\code-to-errno.h
+)
+if exist ..\src\code-from-errno.h (
+del ..\src\code-from-errno.h
+)
+if exist ..\src\errnos-sym.h (
+del ..\src\errnos-sym.h
+)
+if exist ..\src\lock-obj-pub.native.h (
+del ..\src\lock-obj-pub.native.h
+)
+if exist ..\src\gpg-error.h (
+del ..\src\gpg-error.h
+)
+if exist "$(OutDir)"\include\gpg-error.h (
+del "$(OutDir)"\include\gpg-error.h
+)
+if not exist .\src\err-sources.h (
+awk -f ..\src\mkstrtable.awk -v textidx=3 ..\src\err-sources.h.in &gt; .\src\err-sources.h
+)
+if not exist .\src\err-sources-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 ..\src\err-sources.h.in &gt; .\src\err-sources-sym.h
+)
+if not exist .\src\err-codes.h (
+awk -f ..\src\mkstrtable.awk -v textidx=3 ..\src\err-codes.h.in &gt; .\src\err-codes.h
+)
+if not exist .\src\err-codes-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 ..\src\err-codes.h.in &gt; .\src\err-codes-sym.h
+)
+if not exist .\src\code-to-errno.h (
+awk -f ..\src\mkerrnos.awk ..\src\errnos.in &gt; .\src\code-to-errno.h
+)
+if not exist .\src\errnos-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 -v prefix=GPG_ERR_ -v namespace=errnos_ ..\src\errnos.in &gt; .\src\errnos-sym.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gpg-error.h (
+del /f /q "$(OutDir)"\include\gpg-error.h
+)
+if exist $(OutDir)\licenses\libgpg-error.txt (
+del /f /q $(OutDir)\licenses\libgpg-error.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;PKGDATADIR="";_WINSOCK_DEPRECATED_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;.\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4018;4267;4312;4311;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\src\gpg-error.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgpg-error.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\err-sources.h (
+del ..\src\err-sources.h
+)
+if exist ..\src\err-sources-sym.h (
+del ..\src\err-sources-sym.h
+)
+if exist ..\src\err-codes.h (
+del ..\src\err-codes.h
+)
+if exist ..\src\err-codes-sym.h (
+del ..\src\err-codes-sym.h
+)
+if exist ..\src\code-to-errno.h (
+del ..\src\code-to-errno.h
+)
+if exist ..\src\code-from-errno.h (
+del ..\src\code-from-errno.h
+)
+if exist ..\src\errnos-sym.h (
+del ..\src\errnos-sym.h
+)
+if exist ..\src\lock-obj-pub.native.h (
+del ..\src\lock-obj-pub.native.h
+)
+if exist ..\src\gpg-error.h (
+del ..\src\gpg-error.h
+)
+if exist "$(OutDir)"\include\gpg-error.h (
+del "$(OutDir)"\include\gpg-error.h
+)
+if not exist .\src\err-sources.h (
+awk -f ..\src\mkstrtable.awk -v textidx=3 ..\src\err-sources.h.in &gt; .\src\err-sources.h
+)
+if not exist .\src\err-sources-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 ..\src\err-sources.h.in &gt; .\src\err-sources-sym.h
+)
+if not exist .\src\err-codes.h (
+awk -f ..\src\mkstrtable.awk -v textidx=3 ..\src\err-codes.h.in &gt; .\src\err-codes.h
+)
+if not exist .\src\err-codes-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 ..\src\err-codes.h.in &gt; .\src\err-codes-sym.h
+)
+if not exist .\src\code-to-errno.h (
+awk -f ..\src\mkerrnos.awk ..\src\errnos.in &gt; .\src\code-to-errno.h
+)
+if not exist .\src\errnos-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 -v prefix=GPG_ERR_ -v namespace=errnos_ ..\src\errnos.in &gt; .\src\errnos-sym.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gpg-error.h (
+del /f /q "$(OutDir)"\include\gpg-error.h
+)
+if exist $(OutDir)\licenses\libgpg-error.txt (
+del /f /q $(OutDir)\licenses\libgpg-error.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;PKGDATADIR="";_WINSOCK_DEPRECATED_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;.\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4018;4267;4312;4311;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libgpg-error.def</ModuleDefinitionFile>
+      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\src\gpg-error.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgpg-error.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\err-sources.h (
+del ..\src\err-sources.h
+)
+if exist ..\src\err-sources-sym.h (
+del ..\src\err-sources-sym.h
+)
+if exist ..\src\err-codes.h (
+del ..\src\err-codes.h
+)
+if exist ..\src\err-codes-sym.h (
+del ..\src\err-codes-sym.h
+)
+if exist ..\src\code-to-errno.h (
+del ..\src\code-to-errno.h
+)
+if exist ..\src\code-from-errno.h (
+del ..\src\code-from-errno.h
+)
+if exist ..\src\errnos-sym.h (
+del ..\src\errnos-sym.h
+)
+if exist ..\src\lock-obj-pub.native.h (
+del ..\src\lock-obj-pub.native.h
+)
+if exist ..\src\gpg-error.h (
+del ..\src\gpg-error.h
+)
+if exist "$(OutDir)"\include\gpg-error.h (
+del "$(OutDir)"\include\gpg-error.h
+)
+if not exist .\src\err-sources.h (
+awk -f ..\src\mkstrtable.awk -v textidx=3 ..\src\err-sources.h.in &gt; .\src\err-sources.h
+)
+if not exist .\src\err-sources-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 ..\src\err-sources.h.in &gt; .\src\err-sources-sym.h
+)
+if not exist .\src\err-codes.h (
+awk -f ..\src\mkstrtable.awk -v textidx=3 ..\src\err-codes.h.in &gt; .\src\err-codes.h
+)
+if not exist .\src\err-codes-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 ..\src\err-codes.h.in &gt; .\src\err-codes-sym.h
+)
+if not exist .\src\code-to-errno.h (
+awk -f ..\src\mkerrnos.awk ..\src\errnos.in &gt; .\src\code-to-errno.h
+)
+if not exist .\src\errnos-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 -v prefix=GPG_ERR_ -v namespace=errnos_ ..\src\errnos.in &gt; .\src\errnos-sym.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gpg-error.h (
+del /f /q "$(OutDir)"\include\gpg-error.h
+)
+if exist $(OutDir)\licenses\libgpg-error.txt (
+del /f /q $(OutDir)\licenses\libgpg-error.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;PKGDATADIR="";MKDIR_TAKES_ONE_ARG;_WINSOCK_DEPRECATED_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;.\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4018;4267;4312;4311;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libgpg-error.def</ModuleDefinitionFile>
+      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy .\src\gpg-error.h "$(OutDir)"\include\
+mkdir $(OutDir)\licenses
+copy ..\COPYING.LIB $(OutDir)\licenses\libgpg-error.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\src\err-sources.h (
+del ..\src\err-sources.h
+)
+if exist ..\src\err-sources-sym.h (
+del ..\src\err-sources-sym.h
+)
+if exist ..\src\err-codes.h (
+del ..\src\err-codes.h
+)
+if exist ..\src\err-codes-sym.h (
+del ..\src\err-codes-sym.h
+)
+if exist ..\src\code-to-errno.h (
+del ..\src\code-to-errno.h
+)
+if exist ..\src\code-from-errno.h (
+del ..\src\code-from-errno.h
+)
+if exist ..\src\errnos-sym.h (
+del ..\src\errnos-sym.h
+)
+if exist ..\src\lock-obj-pub.native.h (
+del ..\src\lock-obj-pub.native.h
+)
+if exist ..\src\gpg-error.h (
+del ..\src\gpg-error.h
+)
+if exist "$(OutDir)"\include\gpg-error.h (
+del "$(OutDir)"\include\gpg-error.h
+)
+if not exist .\src\err-sources.h (
+awk -f ..\src\mkstrtable.awk -v textidx=3 ..\src\err-sources.h.in &gt; .\src\err-sources.h
+)
+if not exist .\src\err-sources-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 ..\src\err-sources.h.in &gt; .\src\err-sources-sym.h
+)
+if not exist .\src\err-codes.h (
+awk -f ..\src\mkstrtable.awk -v textidx=3 ..\src\err-codes.h.in &gt; .\src\err-codes.h
+)
+if not exist .\src\err-codes-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 ..\src\err-codes.h.in &gt; .\src\err-codes-sym.h
+)
+if not exist .\src\code-to-errno.h (
+awk -f ..\src\mkerrnos.awk ..\src\errnos.in &gt; .\src\code-to-errno.h
+)
+if not exist .\src\errnos-sym.h (
+awk -f ..\src\mkstrtable.awk -v textidx=2 -v nogettext=1 -v prefix=GPG_ERR_ -v namespace=errnos_ ..\src\errnos.in &gt; .\src\errnos-sym.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\gpg-error.h (
+del /f /q "$(OutDir)"\include\gpg-error.h
+)
+if exist $(OutDir)\licenses\libgpg-error.txt (
+del /f /q $(OutDir)\licenses\libgpg-error.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+</Project>

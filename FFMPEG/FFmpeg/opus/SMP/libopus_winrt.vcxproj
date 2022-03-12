@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AABD5F2A-361F-4D4F-A532-01B856C59E9E}</ProjectGuid>
+    <RootNamespace>opus</RootNamespace>
+  </PropertyGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="smp_winrt.props" />
+    <Import Project="libopus_files.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWinRT|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\;..\silk;..\celt;..\include;..\silk\float;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;OPUS_EXPORT=;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>/IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\opus
+copy ..\include\opus.h "$(OutDir)"\include\opus
+copy ..\include\opus_defines.h "$(OutDir)"\include\opus
+copy ..\include\opus_multistream.h "$(OutDir)"\include\opus
+copy ..\include\opus_projection.h "$(OutDir)"\include\opus
+copy ..\include\opus_types.h "$(OutDir)"\include\opus
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\opus.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\opus (
+rd /s /q "$(OutDir)"\include\opus
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\opus (
+rmdir /s /q "$(OutDir)"\include\opus
+)
+if exist $(OutDir)\licenses\opus.txt (
+del /f /q $(OutDir)\licenses\opus.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWinRT|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\;..\silk;..\celt;..\include;..\silk\float;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;OPUS_EXPORT=;WIN64;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>/IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\opus
+copy ..\include\opus.h "$(OutDir)"\include\opus
+copy ..\include\opus_defines.h "$(OutDir)"\include\opus
+copy ..\include\opus_multistream.h "$(OutDir)"\include\opus
+copy ..\include\opus_projection.h "$(OutDir)"\include\opus
+copy ..\include\opus_types.h "$(OutDir)"\include\opus
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\opus.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\opus (
+rd /s /q "$(OutDir)"\include\opus
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\opus (
+rmdir /s /q "$(OutDir)"\include\opus
+)
+if exist $(OutDir)\licenses\opus.txt (
+del /f /q $(OutDir)\licenses\opus.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLLWinRT|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\;..\silk;..\celt;..\include;..\silk\float;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;DLL_EXPORT;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\opus
+copy ..\include\opus.h "$(OutDir)"\include\opus
+copy ..\include\opus_defines.h "$(OutDir)"\include\opus
+copy ..\include\opus_multistream.h "$(OutDir)"\include\opus
+copy ..\include\opus_projection.h "$(OutDir)"\include\opus
+copy ..\include\opus_types.h "$(OutDir)"\include\opus
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\opus.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\opus (
+rd /s /q "$(OutDir)"\include\opus
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\opus (
+rmdir /s /q "$(OutDir)"\include\opus
+)
+if exist $(OutDir)\licenses\opus.txt (
+del /f /q $(OutDir)\licenses\opus.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLLWinRT|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\;..\silk;..\celt;..\include;..\silk\float;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;DLL_EXPORT;WIN64;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\opus
+copy ..\include\opus.h "$(OutDir)"\include\opus
+copy ..\include\opus_defines.h "$(OutDir)"\include\opus
+copy ..\include\opus_multistream.h "$(OutDir)"\include\opus
+copy ..\include\opus_projection.h "$(OutDir)"\include\opus
+copy ..\include\opus_types.h "$(OutDir)"\include\opus
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\opus.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\opus (
+rd /s /q "$(OutDir)"\include\opus
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\opus (
+rmdir /s /q "$(OutDir)"\include\opus
+)
+if exist $(OutDir)\licenses\opus.txt (
+del /f /q $(OutDir)\licenses\opus.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWinRT|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\;..\silk;..\celt;..\include;..\silk\float;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;OPUS_EXPORT=;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>/IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\opus
+copy ..\include\opus.h "$(OutDir)"\include\opus
+copy ..\include\opus_defines.h "$(OutDir)"\include\opus
+copy ..\include\opus_multistream.h "$(OutDir)"\include\opus
+copy ..\include\opus_projection.h "$(OutDir)"\include\opus
+copy ..\include\opus_types.h "$(OutDir)"\include\opus
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\opus.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\opus (
+rd /s /q "$(OutDir)"\include\opus
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\opus (
+rmdir /s /q "$(OutDir)"\include\opus
+)
+if exist $(OutDir)\licenses\opus.txt (
+del /f /q $(OutDir)\licenses\opus.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWinRT|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\;..\silk;..\celt;..\include;..\silk\float;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;OPUS_EXPORT=;WIN64;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>/IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\opus
+copy ..\include\opus.h "$(OutDir)"\include\opus
+copy ..\include\opus_defines.h "$(OutDir)"\include\opus
+copy ..\include\opus_multistream.h "$(OutDir)"\include\opus
+copy ..\include\opus_projection.h "$(OutDir)"\include\opus
+copy ..\include\opus_types.h "$(OutDir)"\include\opus
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\opus.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\opus (
+rd /s /q "$(OutDir)"\include\opus
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\opus (
+rmdir /s /q "$(OutDir)"\include\opus
+)
+if exist $(OutDir)\licenses\opus.txt (
+del /f /q $(OutDir)\licenses\opus.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLWinRT|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\;..\silk;..\celt;..\include;..\silk\float;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;DLL_EXPORT;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\opus
+copy ..\include\opus.h "$(OutDir)"\include\opus
+copy ..\include\opus_defines.h "$(OutDir)"\include\opus
+copy ..\include\opus_multistream.h "$(OutDir)"\include\opus
+copy ..\include\opus_projection.h "$(OutDir)"\include\opus
+copy ..\include\opus_types.h "$(OutDir)"\include\opus
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\opus.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\opus (
+rd /s /q "$(OutDir)"\include\opus
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\opus (
+rmdir /s /q "$(OutDir)"\include\opus
+)
+if exist $(OutDir)\licenses\opus.txt (
+del /f /q $(OutDir)\licenses\opus.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLWinRT|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\;..\silk;..\celt;..\include;..\silk\float;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;DLL_EXPORT;WIN64;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\opus
+copy ..\include\opus.h "$(OutDir)"\include\opus
+copy ..\include\opus_defines.h "$(OutDir)"\include\opus
+copy ..\include\opus_multistream.h "$(OutDir)"\include\opus
+copy ..\include\opus_projection.h "$(OutDir)"\include\opus
+copy ..\include\opus_types.h "$(OutDir)"\include\opus
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\opus.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\version.h (
+del ..\version.h
+)
+if exist "$(OutDir)"\include\opus (
+rd /s /q "$(OutDir)"\include\opus
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\opus (
+rmdir /s /q "$(OutDir)"\include\opus
+)
+if exist $(OutDir)\licenses\opus.txt (
+del /f /q $(OutDir)\licenses\opus.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+</Project>

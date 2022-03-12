@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A016A4DB-B9BA-4521-BDA7-0EB3806E1FC8}</ProjectGuid>
+    <RootNamespace>mp3lame</RootNamespace>
+  </PropertyGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="smp_winrt.props" />
+    <Import Project="libmp3lame_files.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWinRT|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_MPGLIB;HAVE_CONFIG_H;HAVE_XMMINTRIN_H;MIN_ARCH_SSE;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\libmp3lame;..\mpglib</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lame
+copy ..\include\lame.h "$(OutDir)"\include\lame
+mkdir $(OutDir)\licenses
+copy ..\LICENSE $(OutDir)\licenses\mp3lame.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\lame (
+rd /s /q "$(OutDir)"\include\lame
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\lame (
+rmdir /s /q "$(OutDir)"\include\lame
+)
+if exist $(OutDir)\licenses\mp3lame.txt (
+del /f /q $(OutDir)\licenses\mp3lame.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWinRT|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_MPGLIB;HAVE_CONFIG_H;HAVE_XMMINTRIN_H;MIN_ARCH_SSE;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\libmp3lame;..\mpglib</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lame
+copy ..\include\lame.h "$(OutDir)"\include\lame
+mkdir $(OutDir)\licenses
+copy ..\LICENSE $(OutDir)\licenses\mp3lame.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\lame (
+rd /s /q "$(OutDir)"\include\lame
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\lame (
+rmdir /s /q "$(OutDir)"\include\lame
+)
+if exist $(OutDir)\licenses\mp3lame.txt (
+del /f /q $(OutDir)\licenses\mp3lame.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLLWinRT|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_MPGLIB;HAVE_CONFIG_H;HAVE_XMMINTRIN_H;MIN_ARCH_SSE;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\libmp3lame;..\mpglib</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libmp3lame.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lame
+copy ..\include\lame.h "$(OutDir)"\include\lame
+mkdir $(OutDir)\licenses
+copy ..\LICENSE $(OutDir)\licenses\mp3lame.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\lame (
+rd /s /q "$(OutDir)"\include\lame
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\lame (
+rmdir /s /q "$(OutDir)"\include\lame
+)
+if exist $(OutDir)\licenses\mp3lame.txt (
+del /f /q $(OutDir)\licenses\mp3lame.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLLWinRT|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_MPGLIB;HAVE_CONFIG_H;HAVE_XMMINTRIN_H;MIN_ARCH_SSE;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\libmp3lame;..\mpglib</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libmp3lame.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lame
+copy ..\include\lame.h "$(OutDir)"\include\lame
+mkdir $(OutDir)\licenses
+copy ..\LICENSE $(OutDir)\licenses\mp3lame.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\lame (
+rd /s /q "$(OutDir)"\include\lame
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\lame (
+rmdir /s /q "$(OutDir)"\include\lame
+)
+if exist $(OutDir)\licenses\mp3lame.txt (
+del /f /q $(OutDir)\licenses\mp3lame.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWinRT|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_MPGLIB;HAVE_CONFIG_H;HAVE_XMMINTRIN_H;MIN_ARCH_SSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\libmp3lame;..\mpglib</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lame
+copy ..\include\lame.h "$(OutDir)"\include\lame
+mkdir $(OutDir)\licenses
+copy ..\LICENSE $(OutDir)\licenses\mp3lame.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\lame (
+rd /s /q "$(OutDir)"\include\lame
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\lame (
+rmdir /s /q "$(OutDir)"\include\lame
+)
+if exist $(OutDir)\licenses\mp3lame.txt (
+del /f /q $(OutDir)\licenses\mp3lame.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWinRT|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_MPGLIB;HAVE_CONFIG_H;HAVE_XMMINTRIN_H;MIN_ARCH_SSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\libmp3lame;..\mpglib</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lame
+copy ..\include\lame.h "$(OutDir)"\include\lame
+mkdir $(OutDir)\licenses
+copy ..\LICENSE $(OutDir)\licenses\mp3lame.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\lame (
+rd /s /q "$(OutDir)"\include\lame
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\lame (
+rmdir /s /q "$(OutDir)"\include\lame
+)
+if exist $(OutDir)\licenses\mp3lame.txt (
+del /f /q $(OutDir)\licenses\mp3lame.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLWinRT|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_MPGLIB;HAVE_CONFIG_H;HAVE_XMMINTRIN_H;MIN_ARCH_SSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\libmp3lame;..\mpglib</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libmp3lame.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lame
+copy ..\include\lame.h "$(OutDir)"\include\lame
+mkdir $(OutDir)\licenses
+copy ..\LICENSE $(OutDir)\licenses\mp3lame.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\lame (
+rd /s /q "$(OutDir)"\include\lame
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\lame (
+rmdir /s /q "$(OutDir)"\include\lame
+)
+if exist $(OutDir)\licenses\mp3lame.txt (
+del /f /q $(OutDir)\licenses\mp3lame.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLWinRT|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_MPGLIB;HAVE_CONFIG_H;HAVE_XMMINTRIN_H;MIN_ARCH_SSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\libmp3lame;..\mpglib</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libmp3lame.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lame
+copy ..\include\lame.h "$(OutDir)"\include\lame
+mkdir $(OutDir)\licenses
+copy ..\LICENSE $(OutDir)\licenses\mp3lame.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist "$(OutDir)"\include\lame (
+rd /s /q "$(OutDir)"\include\lame
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\lame (
+rmdir /s /q "$(OutDir)"\include\lame
+)
+if exist $(OutDir)\licenses\mp3lame.txt (
+del /f /q $(OutDir)\licenses\mp3lame.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+</Project>

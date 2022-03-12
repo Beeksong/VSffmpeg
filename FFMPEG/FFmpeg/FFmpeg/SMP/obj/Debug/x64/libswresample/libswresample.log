@@ -1,0 +1,3 @@
+﻿  ..\libswresample\x86\audio_convert.asm
+  ..\libswresample\x86\rematrix.asm
+  ..\libswresample\x86\resample.asm

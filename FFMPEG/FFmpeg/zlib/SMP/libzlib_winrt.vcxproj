@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AA9A4A38-CC63-4BDB-8CFB-E058965DDA32}</ProjectGuid>
+    <RootNamespace>zlib</RootNamespace>
+  </PropertyGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="smp_winrt.props" />
+    <Import Project="libzlib_files.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWinRT|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy ..\zlib.h "$(OutDir)"\include
+copy .\zconf.h "$(OutDir)"\include
+mkdir $(OutDir)\licenses
+copy ..\README $(OutDir)\licenses\zlib.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\zconf.h (
+del ..\zconf.h
+)
+if exist "$(OutDir)"\include\zlib.h (
+del "$(OutDir)"\include\zlib.h
+)
+if exist "$(OutDir)"\include\zconf.h (
+del "$(OutDir)"\include\zconf.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\zlib.h (
+del /f /q "$(OutDir)"\include\zlib.h
+)
+if exist "$(OutDir)"\include\zconf.h (
+del /f /q "$(OutDir)"\include\zconf.h
+)
+if exist $(OutDir)\licenses\zlib.txt (
+del /f /q $(OutDir)\licenses\zlib.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWinRT|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN64;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy ..\zlib.h "$(OutDir)"\include
+copy .\zconf.h "$(OutDir)"\include
+mkdir $(OutDir)\licenses
+copy ..\README $(OutDir)\licenses\zlib.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\zconf.h (
+del ..\zconf.h
+)
+if exist "$(OutDir)"\include\zlib.h (
+del "$(OutDir)"\include\zlib.h
+)
+if exist "$(OutDir)"\include\zconf.h (
+del "$(OutDir)"\include\zconf.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\zlib.h (
+del /f /q "$(OutDir)"\include\zlib.h
+)
+if exist "$(OutDir)"\include\zconf.h (
+del /f /q "$(OutDir)"\include\zconf.h
+)
+if exist $(OutDir)\licenses\zlib.txt (
+del /f /q $(OutDir)\licenses\zlib.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLLWinRT|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>..\contrib\vstudio\vc11\zlibvc.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy ..\zlib.h "$(OutDir)"\include
+copy .\zconf.h "$(OutDir)"\include
+mkdir $(OutDir)\licenses
+copy ..\README $(OutDir)\licenses\zlib.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\zconf.h (
+del ..\zconf.h
+)
+if exist "$(OutDir)"\include\zlib.h (
+del "$(OutDir)"\include\zlib.h
+)
+if exist "$(OutDir)"\include\zconf.h (
+del "$(OutDir)"\include\zconf.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\zlib.h (
+del /f /q "$(OutDir)"\include\zlib.h
+)
+if exist "$(OutDir)"\include\zconf.h (
+del /f /q "$(OutDir)"\include\zconf.h
+)
+if exist $(OutDir)\licenses\zlib.txt (
+del /f /q $(OutDir)\licenses\zlib.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLLWinRT|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN64;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>..\contrib\vstudio\vc11\zlibvc.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy ..\zlib.h "$(OutDir)"\include
+copy .\zconf.h "$(OutDir)"\include
+mkdir $(OutDir)\licenses
+copy ..\README $(OutDir)\licenses\zlib.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\zconf.h (
+del ..\zconf.h
+)
+if exist "$(OutDir)"\include\zlib.h (
+del "$(OutDir)"\include\zlib.h
+)
+if exist "$(OutDir)"\include\zconf.h (
+del "$(OutDir)"\include\zconf.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\zlib.h (
+del /f /q "$(OutDir)"\include\zlib.h
+)
+if exist "$(OutDir)"\include\zconf.h (
+del /f /q "$(OutDir)"\include\zconf.h
+)
+if exist $(OutDir)\licenses\zlib.txt (
+del /f /q $(OutDir)\licenses\zlib.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWinRT|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy ..\zlib.h "$(OutDir)"\include
+copy .\zconf.h "$(OutDir)"\include
+mkdir $(OutDir)\licenses
+copy ..\README $(OutDir)\licenses\zlib.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\zconf.h (
+del ..\zconf.h
+)
+if exist "$(OutDir)"\include\zlib.h (
+del "$(OutDir)"\include\zlib.h
+)
+if exist "$(OutDir)"\include\zconf.h (
+del "$(OutDir)"\include\zconf.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\zlib.h (
+del /f /q "$(OutDir)"\include\zlib.h
+)
+if exist "$(OutDir)"\include\zconf.h (
+del /f /q "$(OutDir)"\include\zconf.h
+)
+if exist $(OutDir)\licenses\zlib.txt (
+del /f /q $(OutDir)\licenses\zlib.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWinRT|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy ..\zlib.h "$(OutDir)"\include
+copy .\zconf.h "$(OutDir)"\include
+mkdir $(OutDir)\licenses
+copy ..\README $(OutDir)\licenses\zlib.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\zconf.h (
+del ..\zconf.h
+)
+if exist "$(OutDir)"\include\zlib.h (
+del "$(OutDir)"\include\zlib.h
+)
+if exist "$(OutDir)"\include\zconf.h (
+del "$(OutDir)"\include\zconf.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\zlib.h (
+del /f /q "$(OutDir)"\include\zlib.h
+)
+if exist "$(OutDir)"\include\zconf.h (
+del /f /q "$(OutDir)"\include\zconf.h
+)
+if exist $(OutDir)\licenses\zlib.txt (
+del /f /q $(OutDir)\licenses\zlib.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLWinRT|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>..\contrib\vstudio\vc11\zlibvc.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy ..\zlib.h "$(OutDir)"\include
+copy .\zconf.h "$(OutDir)"\include
+mkdir $(OutDir)\licenses
+copy ..\README $(OutDir)\licenses\zlib.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\zconf.h (
+del ..\zconf.h
+)
+if exist "$(OutDir)"\include\zlib.h (
+del "$(OutDir)"\include\zlib.h
+)
+if exist "$(OutDir)"\include\zconf.h (
+del "$(OutDir)"\include\zconf.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\zlib.h (
+del /f /q "$(OutDir)"\include\zlib.h
+)
+if exist "$(OutDir)"\include\zconf.h (
+del /f /q "$(OutDir)"\include\zconf.h
+)
+if exist $(OutDir)\licenses\zlib.txt (
+del /f /q $(OutDir)\licenses\zlib.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLWinRT|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>..\contrib\vstudio\vc11\zlibvc.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+copy ..\zlib.h "$(OutDir)"\include
+copy .\zconf.h "$(OutDir)"\include
+mkdir $(OutDir)\licenses
+copy ..\README $(OutDir)\licenses\zlib.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\zconf.h (
+del ..\zconf.h
+)
+if exist "$(OutDir)"\include\zlib.h (
+del "$(OutDir)"\include\zlib.h
+)
+if exist "$(OutDir)"\include\zconf.h (
+del "$(OutDir)"\include\zconf.h
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\zlib.h (
+del /f /q "$(OutDir)"\include\zlib.h
+)
+if exist "$(OutDir)"\include\zconf.h (
+del /f /q "$(OutDir)"\include\zconf.h
+)
+if exist $(OutDir)\licenses\zlib.txt (
+del /f /q $(OutDir)\licenses\zlib.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+</Project>

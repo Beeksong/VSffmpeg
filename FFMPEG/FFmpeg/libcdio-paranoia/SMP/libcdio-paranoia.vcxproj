@@ -1,0 +1,442 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{629D96E8-C933-4F8B-A5B5-17CB25D81C95}</ProjectGuid>
+    <RootNamespace>cdio_paranoia</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="smp_deps.props" />
+    <Import Project="libcdio-paranoia_files.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\lib\driver;..\lib\iso9660;..\lib\udf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4305;4005;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>libcdiod.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\cdio\paranoia
+copy ..\include\cdio\paranoia\*.h "$(OutDir)"\include\cdio\paranoia
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\libcdio-paranoia.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\include\cdio\paranoia\version.h (
+del ..\include\cdio\paranoia\version.h
+)
+if exist "$(OutDir)"\include\cdio\paranoia (
+rd /s /q "$(OutDir)"\include\cdio\paranoia
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\cdio\paranoia (
+rmdir /s /q "$(OutDir)"\include\cdio\paranoia
+)
+if exist $(OutDir)\licenses\libcdio-paranoia.txt (
+del /f /q $(OutDir)\licenses\libcdio-paranoia.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\lib\driver;..\lib\iso9660;..\lib\udf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4305;4005;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>libcdiod.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\cdio\paranoia
+copy ..\include\cdio\paranoia\*.h "$(OutDir)"\include\cdio\paranoia
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\libcdio-paranoia.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\include\cdio\paranoia\version.h (
+del ..\include\cdio\paranoia\version.h
+)
+if exist "$(OutDir)"\include\cdio\paranoia (
+rd /s /q "$(OutDir)"\include\cdio\paranoia
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\cdio\paranoia (
+rmdir /s /q "$(OutDir)"\include\cdio\paranoia
+)
+if exist $(OutDir)\licenses\libcdio-paranoia.txt (
+del /f /q $(OutDir)\licenses\libcdio-paranoia.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\lib\driver;..\lib\iso9660;..\lib\udf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4305;4005;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libcdio-paranoia.def</ModuleDefinitionFile>
+      <AdditionalDependencies>cdiod.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\cdio\paranoia
+copy ..\include\cdio\paranoia\*.h "$(OutDir)"\include\cdio\paranoia
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\libcdio-paranoia.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\include\cdio\paranoia\version.h (
+del ..\include\cdio\paranoia\version.h
+)
+if exist "$(OutDir)"\include\cdio\paranoia (
+rd /s /q "$(OutDir)"\include\cdio\paranoia
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\cdio\paranoia (
+rmdir /s /q "$(OutDir)"\include\cdio\paranoia
+)
+if exist $(OutDir)\licenses\libcdio-paranoia.txt (
+del /f /q $(OutDir)\licenses\libcdio-paranoia.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\lib\driver;..\lib\iso9660;..\lib\udf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4305;4005;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libcdio-paranoia.def</ModuleDefinitionFile>
+      <AdditionalDependencies>cdiod.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\cdio\paranoia
+copy ..\include\cdio\paranoia\*.h "$(OutDir)"\include\cdio\paranoia
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\libcdio-paranoia.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\include\cdio\paranoia\version.h (
+del ..\include\cdio\paranoia\version.h
+)
+if exist "$(OutDir)"\include\cdio\paranoia (
+rd /s /q "$(OutDir)"\include\cdio\paranoia
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\cdio\paranoia (
+rmdir /s /q "$(OutDir)"\include\cdio\paranoia
+)
+if exist $(OutDir)\licenses\libcdio-paranoia.txt (
+del /f /q $(OutDir)\licenses\libcdio-paranoia.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\lib\driver;..\lib\iso9660;..\lib\udf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4305;4005;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>libcdio.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\cdio\paranoia
+copy ..\include\cdio\paranoia\*.h "$(OutDir)"\include\cdio\paranoia
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\libcdio-paranoia.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\include\cdio\paranoia\version.h (
+del ..\include\cdio\paranoia\version.h
+)
+if exist "$(OutDir)"\include\cdio\paranoia (
+rd /s /q "$(OutDir)"\include\cdio\paranoia
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\cdio\paranoia (
+rmdir /s /q "$(OutDir)"\include\cdio\paranoia
+)
+if exist $(OutDir)\licenses\libcdio-paranoia.txt (
+del /f /q $(OutDir)\licenses\libcdio-paranoia.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\lib\driver;..\lib\iso9660;..\lib\udf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4305;4005;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>libcdio.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\cdio\paranoia
+copy ..\include\cdio\paranoia\*.h "$(OutDir)"\include\cdio\paranoia
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\libcdio-paranoia.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\include\cdio\paranoia\version.h (
+del ..\include\cdio\paranoia\version.h
+)
+if exist "$(OutDir)"\include\cdio\paranoia (
+rd /s /q "$(OutDir)"\include\cdio\paranoia
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\cdio\paranoia (
+rmdir /s /q "$(OutDir)"\include\cdio\paranoia
+)
+if exist $(OutDir)\licenses\libcdio-paranoia.txt (
+del /f /q $(OutDir)\licenses\libcdio-paranoia.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\lib\driver;..\lib\iso9660;..\lib\udf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4305;4005;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libcdio-paranoia.def</ModuleDefinitionFile>
+      <AdditionalDependencies>cdio.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\cdio\paranoia
+copy ..\include\cdio\paranoia\*.h "$(OutDir)"\include\cdio\paranoia
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\libcdio-paranoia.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\include\cdio\paranoia\version.h (
+del ..\include\cdio\paranoia\version.h
+)
+if exist "$(OutDir)"\include\cdio\paranoia (
+rd /s /q "$(OutDir)"\include\cdio\paranoia
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\cdio\paranoia (
+rmdir /s /q "$(OutDir)"\include\cdio\paranoia
+)
+if exist $(OutDir)\licenses\libcdio-paranoia.txt (
+del /f /q $(OutDir)\licenses\libcdio-paranoia.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLStaticDeps|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\lib\driver;..\lib\iso9660;..\lib\udf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4305;4005;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libcdio-paranoia.def</ModuleDefinitionFile>
+      <AdditionalDependencies>libcdio.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\cdio\paranoia
+copy ..\include\cdio\paranoia\*.h "$(OutDir)"\include\cdio\paranoia
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\libcdio-paranoia.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\include\cdio\paranoia\version.h (
+del ..\include\cdio\paranoia\version.h
+)
+if exist "$(OutDir)"\include\cdio\paranoia (
+rd /s /q "$(OutDir)"\include\cdio\paranoia
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\cdio\paranoia (
+rmdir /s /q "$(OutDir)"\include\cdio\paranoia
+)
+if exist $(OutDir)\licenses\libcdio-paranoia.txt (
+del /f /q $(OutDir)\licenses\libcdio-paranoia.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\lib\driver;..\lib\iso9660;..\lib\udf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4305;4005;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libcdio-paranoia.def</ModuleDefinitionFile>
+      <AdditionalDependencies>cdio.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\cdio\paranoia
+copy ..\include\cdio\paranoia\*.h "$(OutDir)"\include\cdio\paranoia
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\libcdio-paranoia.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\include\cdio\paranoia\version.h (
+del ..\include\cdio\paranoia\version.h
+)
+if exist "$(OutDir)"\include\cdio\paranoia (
+rd /s /q "$(OutDir)"\include\cdio\paranoia
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\cdio\paranoia (
+rmdir /s /q "$(OutDir)"\include\cdio\paranoia
+)
+if exist $(OutDir)\licenses\libcdio-paranoia.txt (
+del /f /q $(OutDir)\licenses\libcdio-paranoia.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLLStaticDeps|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;..\include;..\lib\driver;..\lib\iso9660;..\lib\udf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4305;4005;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>libcdio-paranoia.def</ModuleDefinitionFile>
+      <AdditionalDependencies>libcdio.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(OutDir)"\include
+mkdir "$(OutDir)"\include\cdio\paranoia
+copy ..\include\cdio\paranoia\*.h "$(OutDir)"\include\cdio\paranoia
+mkdir $(OutDir)\licenses
+copy ..\COPYING $(OutDir)\licenses\libcdio-paranoia.txt</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist ..\config.h (
+del ..\config.h
+)
+if exist ..\include\cdio\paranoia\version.h (
+del ..\include\cdio\paranoia\version.h
+)
+if exist "$(OutDir)"\include\cdio\paranoia (
+rd /s /q "$(OutDir)"\include\cdio\paranoia
+cd ../
+cd $(ProjectDir)
+)</Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
+      <Message>Custom Clean Step</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>force_clean</Outputs>
+      <Command>if exist "$(OutDir)"\include\cdio\paranoia (
+rmdir /s /q "$(OutDir)"\include\cdio\paranoia
+)
+if exist $(OutDir)\licenses\libcdio-paranoia.txt (
+del /f /q $(OutDir)\licenses\libcdio-paranoia.txt
+)</Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+</Project>
